@@ -22,8 +22,8 @@ fun PfsTopAppBar(
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
                 Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "",
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "", /* todo */
                     tint = MaterialTheme.colorScheme.onSurface
                 )
             }

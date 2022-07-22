@@ -1,20 +1,96 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.victorbrndls.pfs.expense
 
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
+import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.victorbrndls.pfs.R
+import com.victorbrndls.pfs.designsystem.component.PfsTopAppBar
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ModifyExpenseScreen() {
+fun ModifyExpenseScreen(
+    modifier: Modifier = Modifier
+) {
     Scaffold(
         topBar = {
-
+            PfsTopAppBar(titleRes = R.string.title_modify_expense)
         },
         floatingActionButton = {
-
+            FloatingActionButton(onClick = { /* todo */ }) {
+                Icon(
+                    imageVector = Icons.Filled.Done,
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
         }
     ) { innerPadding ->
+        BoxWithConstraints(
+            modifier = modifier
+                .padding(innerPadding)
+                .consumedWindowInsets(innerPadding)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                CustomTextField(
+                    value = "",
+                    onValueChange = {},
+                    labelRes = R.string.field_description_generic
+                )
+                Box {
+                    CustomTextField(
+                        value = "",
+                        onValueChange = {},
+                        labelRes = R.string.field_date_generic
+                    )
+                    Box(
+                        modifier = Modifier
+                            .matchParentSize()
+                            .clickable { }
+                    ) {
 
+                    }
+                }
+                CustomTextField(
+                    value = "",
+                    onValueChange = {},
+                    labelRes = R.string.field_amount_generic
+                )
+            }
+        }
     }
+}
+
+@Composable
+private fun CustomTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    @StringRes labelRes: Int,
+) {
+    TextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(text = stringResource(id = labelRes)) },
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 10.dp)
+    )
+}
+
+@Preview
+@Composable
+fun ModifyExpenseScreenPreview() {
+    ModifyExpenseScreen()
 }

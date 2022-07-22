@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Personal Finance</string>
+
+    <string name="field_description_generic">Description</string>
+    <string name="field_date_generic">Date</string>
+    <string name="field_amount_generic">Amount</string>
+
+    <string name="title_modify_expense">Expense</string>
+
 </resources>
