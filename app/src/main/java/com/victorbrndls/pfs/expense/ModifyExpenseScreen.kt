@@ -3,7 +3,6 @@
 package com.victorbrndls.pfs.expense
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
@@ -13,8 +12,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.victorbrndls.pfs.R
+import com.victorbrndls.pfs.designsystem.component.ClickableOverlay
 import com.victorbrndls.pfs.designsystem.component.PfsTopAppBar
+
+val textFieldSpacingModifier = Modifier
+    .fillMaxWidth()
+    .padding(horizontal = 16.dp, vertical = 10.dp)
+
+@Composable
+fun ModifyExpenseRoute(
+    modifier: Modifier = Modifier,
+    viewModel: ModifyExpenseViewModel = hiltViewModel()
+) {
+    ModifyExpenseScreen()
+}
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -40,33 +53,30 @@ fun ModifyExpenseScreen(
                 .padding(innerPadding)
                 .consumedWindowInsets(innerPadding)
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                CustomTextField(
-                    value = "",
-                    onValueChange = {},
-                    labelRes = R.string.field_description_generic
-                )
-                Box {
+            Column(modifier = Modifier.fillMaxSize()) {
+                Box(modifier = textFieldSpacingModifier) {
                     CustomTextField(
                         value = "",
                         onValueChange = {},
-                        labelRes = R.string.field_date_generic
+                        labelRes = R.string.field_description_generic
                     )
-                    Box(
-                        modifier = Modifier
-                            .matchParentSize()
-                            .clickable { }
-                    ) {
-
+                }
+                Box(modifier = textFieldSpacingModifier) {
+                    ClickableOverlay {
+                        CustomTextField(
+                            value = "",
+                            onValueChange = {},
+                            labelRes = R.string.field_date_generic
+                        )
                     }
                 }
-                CustomTextField(
-                    value = "",
-                    onValueChange = {},
-                    labelRes = R.string.field_amount_generic
-                )
+                Box(modifier = textFieldSpacingModifier) {
+                    CustomTextField(
+                        value = "",
+                        onValueChange = {},
+                        labelRes = R.string.field_amount_generic
+                    )
+                }
             }
         }
     }
@@ -83,9 +93,7 @@ private fun CustomTextField(
         value = value,
         onValueChange = onValueChange,
         label = { Text(text = stringResource(id = labelRes)) },
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 10.dp)
+        modifier = modifier.fillMaxWidth()
     )
 }
 
