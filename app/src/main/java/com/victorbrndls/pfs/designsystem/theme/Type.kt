@@ -1,4 +1,4 @@
-package com.victorbrndls.mymoney.ui.theme
+package com.victorbrndls.pfs.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

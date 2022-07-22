@@ -1,4 +1,4 @@
-package com.victorbrndls.mymoney.ui.theme
+package com.victorbrndls.pfs.designsystem.theme
 
 import android.app.Activity
 import android.os.Build
