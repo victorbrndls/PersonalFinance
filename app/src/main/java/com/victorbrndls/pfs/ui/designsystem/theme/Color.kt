@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.designsystem.theme
+package com.victorbrndls.pfs.ui.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

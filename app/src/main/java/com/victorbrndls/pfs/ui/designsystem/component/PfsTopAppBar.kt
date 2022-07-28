@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.designsystem.component
+package com.victorbrndls.pfs.ui.designsystem.component
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons

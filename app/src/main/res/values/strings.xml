@@ -5,6 +5,8 @@
     <string name="field_date_generic">Date</string>
     <string name="field_amount_generic">Amount</string>
 
-    <string name="title_modify_expense">Expense</string>
+    <string name="title_edit_expense">Expense</string>
+
+    <string name="content_description_save">Save</string>
 
 </resources>
