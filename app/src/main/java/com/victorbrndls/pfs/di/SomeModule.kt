@@ -1,7 +1,7 @@
 package com.victorbrndls.pfs.di
 
-import com.victorbrndls.pfs.b.DateTranslator
-import com.victorbrndls.pfs.b.DateTranslatorImpl
+import com.victorbrndls.pfs.some.DateTranslator
+import com.victorbrndls.pfs.some.DateTranslatorImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,5 +13,4 @@ abstract class SomeModule {
 
     @Binds
     abstract fun dateTranslator(impl: DateTranslatorImpl): DateTranslator
-
 }

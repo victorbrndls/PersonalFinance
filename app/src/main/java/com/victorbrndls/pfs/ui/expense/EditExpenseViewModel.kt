@@ -2,14 +2,19 @@ package com.victorbrndls.pfs.ui.expense
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
-import com.victorbrndls.pfs.b.DateTranslator
+import androidx.lifecycle.viewModelScope
+import com.victorbrndls.pfs.some.DateTranslator
+import com.victorbrndls.pfs.core.expense.dto.EditExpenseData
+import com.victorbrndls.pfs.core.expense.usecase.SaveExpenseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class EditExpenseViewModel @Inject constructor(
-    private val dateTranslator: DateTranslator
+    private val dateTranslator: DateTranslator,
+    private val saveExpenseUseCase: SaveExpenseUseCase
 ) : ViewModel() {
 
     var description: String by mutableStateOf("")
@@ -21,11 +26,24 @@ class EditExpenseViewModel @Inject constructor(
 
     var amount: String by mutableStateOf("")
 
-    fun updateDate(date: String) {
-        backingDate = dateTranslator.parse(date)
+    var closeScreen: Boolean by mutableStateOf(false)
+        private set
+
+    fun updateDate(date: Date) {
+        backingDate = date
     }
 
     fun onSaveClicked() {
+        viewModelScope.launch {
+            val expense = EditExpenseData(
+                id = null,
+                description = "",
+                date = Date(),
+                amount = 1000
+            )
 
+            saveExpenseUseCase.save(expense)
+            closeScreen = true
+        }
     }
 }

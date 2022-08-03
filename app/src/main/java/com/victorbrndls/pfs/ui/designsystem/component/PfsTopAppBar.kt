@@ -7,13 +7,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun PfsTopAppBar(
     @StringRes titleRes: Int,
+    onNavigationClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onNavigationClick: () -> Unit = {},
 ) {
     SmallTopAppBar(
         title = {
@@ -29,13 +28,5 @@ fun PfsTopAppBar(
             }
         },
         modifier = modifier
-    )
-}
-
-@Preview
-@Composable
-fun PfsTopAppBarPreview() {
-    PfsTopAppBar(
-        titleRes = android.R.string.unknownName
     )
 }

@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -20,9 +21,11 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.victorbrndls.pfs.R
 import com.victorbrndls.pfs.ui.designsystem.component.ClickableOverlay
 import com.victorbrndls.pfs.ui.designsystem.component.PfsTopAppBar
+import java.util.*
 
 private val textFieldSpacingModifier = Modifier
     .fillMaxWidth()
@@ -30,8 +33,13 @@ private val textFieldSpacingModifier = Modifier
 
 @Composable
 fun EditExpenseRoute(
+    navController: NavController,
     viewModel: EditExpenseViewModel = hiltViewModel()
 ) {
+    if (viewModel.closeScreen) LaunchedEffect(Unit) {
+        navController.popBackStack()
+    }
+
     EditExpenseScreen(
         description = viewModel.description,
         onDescriptionChanged = { viewModel.description = it },
@@ -39,25 +47,29 @@ fun EditExpenseRoute(
         onDateChanged = { viewModel.updateDate(it) },
         amount = viewModel.amount,
         onAmountChanged = { viewModel.amount = it },
-        onSaveClicked = { viewModel.onSaveClicked() }
+        onSaveClicked = { viewModel.onSaveClicked() },
+        onNavigateUp = { navController.popBackStack() }
     )
 }
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun EditExpenseScreen(
+private fun EditExpenseScreen(
     description: String,
     onDescriptionChanged: (String) -> Unit,
     date: String,
-    onDateChanged: (String) -> Unit,
+    onDateChanged: (Date) -> Unit,
     amount: String,
     onAmountChanged: (String) -> Unit,
     onSaveClicked: () -> Unit,
+    onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
         topBar = {
-            PfsTopAppBar(titleRes = R.string.title_edit_expense)
+            PfsTopAppBar(
+                titleRes = R.string.title_edit_expense,
+                onNavigationClick = { onNavigateUp() })
         },
         floatingActionButton = {
             FloatingActionButton(onClick = onSaveClicked) {
@@ -110,6 +122,7 @@ fun EditExpenseScreen(
                         onValueChange = onAmountChanged,
                         labelRes = R.string.field_amount_generic,
                         keyboardType = KeyboardType.Decimal,
+                        imeAction = ImeAction.Done,
                         modifier = Modifier.focusRequester(amountFocusRequester)
                     )
                 }
