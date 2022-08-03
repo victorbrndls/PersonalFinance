@@ -11,10 +11,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -52,7 +54,10 @@ fun EditExpenseRoute(
     )
 }
 
-@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
+@OptIn(
+    ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class,
+    ExperimentalComposeUiApi::class
+)
 @Composable
 private fun EditExpenseScreen(
     description: String,
@@ -87,6 +92,7 @@ private fun EditExpenseScreen(
                 .consumedWindowInsets(innerPadding)
         ) {
             val amountFocusRequester = remember { FocusRequester() }
+            val keyboardController = LocalSoftwareKeyboardController.current
 
             Column(modifier = Modifier.fillMaxSize()) {
                 Box(modifier = textFieldSpacingModifier) {
@@ -123,6 +129,7 @@ private fun EditExpenseScreen(
                         labelRes = R.string.field_amount_generic,
                         keyboardType = KeyboardType.Decimal,
                         imeAction = ImeAction.Done,
+                        onImeAction = { keyboardController?.hide() },
                         modifier = Modifier.focusRequester(amountFocusRequester)
                     )
                 }

@@ -3,11 +3,12 @@ package com.victorbrndls.pfs.ui.expense
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.victorbrndls.pfs.infrastructure.date.DateTranslator
 import com.victorbrndls.pfs.core.expense.dto.EditExpenseData
 import com.victorbrndls.pfs.core.expense.usecase.SaveExpenseUseCase
+import com.victorbrndls.pfs.infrastructure.date.DateTranslator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
@@ -37,9 +38,9 @@ class EditExpenseViewModel @Inject constructor(
         viewModelScope.launch {
             val expense = EditExpenseData(
                 id = null,
-                description = "",
-                date = Date(),
-                amount = 1000
+                description = description.trim(),
+                date = backingDate ?: Date(),
+                amount = amount.toBigDecimalOrNull() ?: BigDecimal.ZERO
             )
 
             saveExpenseUseCase.save(expense)
