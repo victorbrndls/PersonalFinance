@@ -16,14 +16,16 @@ fun HomeRoute(
     navController: NavController,
 ) {
     HomeScreen(
-        onNavigateToEditExpenses = { navController.navigate(Routes.EDIT_EXPENSE) },
+        onNavigateToEditExpense = { navController.navigate(Routes.EDIT_EXPENSE) },
+        onNavigateToEditIncome = { navController.navigate(Routes.EDIT_INCOME) },
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 private fun HomeScreen(
-    onNavigateToEditExpenses: () -> Unit,
+    onNavigateToEditExpense: () -> Unit,
+    onNavigateToEditIncome: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold { innerPadding ->
@@ -37,8 +39,11 @@ private fun HomeScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Button(onClick = onNavigateToEditExpenses) {
-                    Text(text = "Edit Expenses")
+                Button(onClick = onNavigateToEditExpense) {
+                    Text(text = "Edit Expense")
+                }
+                Button(onClick = onNavigateToEditIncome) {
+                    Text(text = "Edit Income")
                 }
             }
         }

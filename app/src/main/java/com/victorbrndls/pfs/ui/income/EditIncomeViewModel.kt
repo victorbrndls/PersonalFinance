@@ -4,7 +4,8 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.victorbrndls.pfs.core.expense.dto.EditExpenseData
-import com.victorbrndls.pfs.core.expense.usecase.SaveExpenseUseCase
+import com.victorbrndls.pfs.core.income.dto.EditIncomeData
+import com.victorbrndls.pfs.core.income.usecase.SaveIncomeUseCase
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EditIncomeViewModel @Inject constructor(
     private val dateTranslator: DateTranslator,
-    private val saveExpenseUseCase: SaveExpenseUseCase
+    private val saveIncomeUseCase: SaveIncomeUseCase
 ) : ViewModel() {
 
     var description: String by mutableStateOf("")
@@ -36,14 +37,14 @@ class EditIncomeViewModel @Inject constructor(
 
     fun onSaveClicked() {
         viewModelScope.launch {
-            val expense = EditExpenseData(
+            val income = EditIncomeData(
                 id = null,
                 description = description.trim(),
                 date = backingDate ?: Date(),
                 amount = amount.toBigDecimalOrNull() ?: BigDecimal.ZERO
             )
 
-            saveExpenseUseCase.save(expense)
+            saveIncomeUseCase.save(income)
             closeScreen = true
         }
     }
