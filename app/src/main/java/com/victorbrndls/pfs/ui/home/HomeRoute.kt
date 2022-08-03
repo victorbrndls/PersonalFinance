@@ -16,7 +16,7 @@ fun HomeRoute(
     navController: NavController,
 ) {
     HomeScreen(
-        onNavigateToEditExpenses = { navController.navigate(Routes.EDIT_EXPENSES) },
+        onNavigateToEditExpenses = { navController.navigate(Routes.EDIT_EXPENSE) },
     )
 }
 
