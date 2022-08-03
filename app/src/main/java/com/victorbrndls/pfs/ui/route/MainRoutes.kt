@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.victorbrndls.pfs.ui.expense.EditExpenseRoute
+import com.victorbrndls.pfs.ui.expense.edit.EditExpenseRoute
 import com.victorbrndls.pfs.ui.home.HomeRoute
-import com.victorbrndls.pfs.ui.income.EditIncomeRoute
+import com.victorbrndls.pfs.ui.income.edit.EditIncomeRoute
 
 @Composable
 fun MainRoutes() {

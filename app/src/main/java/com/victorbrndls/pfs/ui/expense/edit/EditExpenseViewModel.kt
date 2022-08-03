@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.ui.expense
+package com.victorbrndls.pfs.ui.expense.edit
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel

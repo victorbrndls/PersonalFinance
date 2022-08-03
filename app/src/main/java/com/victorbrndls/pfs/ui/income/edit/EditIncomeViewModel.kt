@@ -1,9 +1,8 @@
-package com.victorbrndls.pfs.ui.income
+package com.victorbrndls.pfs.ui.income.edit
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.victorbrndls.pfs.core.expense.dto.EditExpenseData
 import com.victorbrndls.pfs.core.income.dto.EditIncomeData
 import com.victorbrndls.pfs.core.income.usecase.SaveIncomeUseCase
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator

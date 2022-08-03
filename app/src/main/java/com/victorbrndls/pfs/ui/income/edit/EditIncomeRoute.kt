@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.ui.expense
+package com.victorbrndls.pfs.ui.income.edit
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
@@ -34,15 +34,15 @@ private val textFieldSpacingModifier = Modifier
     .padding(horizontal = 16.dp, vertical = 10.dp)
 
 @Composable
-fun EditExpenseRoute(
+fun EditIncomeRoute(
     navController: NavController,
-    viewModel: EditExpenseViewModel = hiltViewModel()
+    viewModel: EditIncomeViewModel = hiltViewModel()
 ) {
     if (viewModel.closeScreen) LaunchedEffect(Unit) {
         navController.popBackStack()
     }
 
-    EditExpenseScreen(
+    EditIncomeScreen(
         description = viewModel.description,
         onDescriptionChanged = { viewModel.description = it },
         date = viewModel.date.value,
@@ -59,7 +59,7 @@ fun EditExpenseRoute(
     ExperimentalComposeUiApi::class
 )
 @Composable
-private fun EditExpenseScreen(
+private fun EditIncomeScreen(
     description: String,
     onDescriptionChanged: (String) -> Unit,
     date: String,
@@ -73,7 +73,7 @@ private fun EditExpenseScreen(
     Scaffold(
         topBar = {
             PfsTopAppBar(
-                titleRes = R.string.title_edit_expense,
+                titleRes = R.string.title_edit_income,
                 onNavigationClick = { onNavigateUp() })
         },
         floatingActionButton = {
