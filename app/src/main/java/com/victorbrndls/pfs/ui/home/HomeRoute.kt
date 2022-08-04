@@ -16,6 +16,7 @@ fun HomeRoute(
     navController: NavController,
 ) {
     HomeScreen(
+        onNavigateToListCategories = { navController.navigate(Routes.LIST_CATEGORIES) },
         onNavigateToEditExpense = { navController.navigate(Routes.EDIT_EXPENSE) },
         onNavigateToEditIncome = { navController.navigate(Routes.EDIT_INCOME) },
     )
@@ -24,6 +25,7 @@ fun HomeRoute(
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 private fun HomeScreen(
+    onNavigateToListCategories: () -> Unit,
     onNavigateToEditExpense: () -> Unit,
     onNavigateToEditIncome: () -> Unit,
     modifier: Modifier = Modifier
@@ -39,6 +41,9 @@ private fun HomeScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Button(onClick = onNavigateToListCategories) {
+                    Text(text = "List Categories")
+                }
                 Button(onClick = onNavigateToEditExpense) {
                     Text(text = "Edit Expense")
                 }
