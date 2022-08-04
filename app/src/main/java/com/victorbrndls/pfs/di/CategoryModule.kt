@@ -1,8 +1,8 @@
 package com.victorbrndls.pfs.di
 
 import com.victorbrndls.pfs.core.category.repository.CategoryRepository
-import com.victorbrndls.pfs.core.category.usecase.GetCategoriesUseCase
-import com.victorbrndls.pfs.core.category.usecase.GetCategoriesUseCaseImpl
+import com.victorbrndls.pfs.core.category.usecase.ObserveCategoriesUseCase
+import com.victorbrndls.pfs.core.category.usecase.ObserveCategoriesUseCaseImpl
 import com.victorbrndls.pfs.core.category.usecase.SaveCategoryUseCase
 import com.victorbrndls.pfs.core.category.usecase.SaveCategoryUseCaseImpl
 import com.victorbrndls.pfs.data.category.repository.CategoryRepositoryImpl
@@ -19,7 +19,9 @@ abstract class CategoryModule {
     abstract fun saveCategoryUseCase(impl: SaveCategoryUseCaseImpl): SaveCategoryUseCase
 
     @Binds
-    abstract fun getCategoriesUseCase(impl: GetCategoriesUseCaseImpl): GetCategoriesUseCase
+    abstract fun observeCategoriesUseCase(
+        impl: ObserveCategoriesUseCaseImpl
+    ): ObserveCategoriesUseCase
 
     @Binds
     abstract fun expenseRepository(impl: CategoryRepositoryImpl): CategoryRepository

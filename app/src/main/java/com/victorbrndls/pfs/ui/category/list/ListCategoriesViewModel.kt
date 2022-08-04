@@ -4,19 +4,40 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.victorbrndls.pfs.core.category.usecase.GetCategoriesUseCase
+import androidx.lifecycle.viewModelScope
+import com.victorbrndls.pfs.core.category.entity.Category
+import com.victorbrndls.pfs.core.category.usecase.ObserveCategoriesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ListCategoriesViewModel @Inject constructor(
-    private val getCategoriesUseCase: GetCategoriesUseCase
+    private val observeCategoriesUseCase: ObserveCategoriesUseCase
 ) : ViewModel() {
 
-    var description: String by mutableStateOf("")
+    var categories: List<Category> by mutableStateOf(emptyList())
+        private set
+
+    var isLoading: Boolean by mutableStateOf(false)
+        private set
 
     var closeScreen: Boolean by mutableStateOf(false)
         private set
+
+    init {
+        observeCategories()
+    }
+
+    private fun observeCategories() {
+        viewModelScope.launch {
+            isLoading = true
+            observeCategoriesUseCase.observe().collect { categories ->
+                isLoading = false
+                this@ListCategoriesViewModel.categories = categories.sortedBy { it.label }
+            }
+        }
+    }
 
     fun addNewCategory() {
 
