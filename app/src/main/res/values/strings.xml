@@ -9,6 +9,9 @@
 
     <string name="title_edit_income">Income</string>
 
+    <string name="title_add_category">Add Category</string>
+    <string name="title_edit_category">Edit Category</string>
+    <string name="title_edit_category_label">Label</string>
     <string name="title_list_categories">Categories</string>
 
     <string name="content_description_save">Save</string>

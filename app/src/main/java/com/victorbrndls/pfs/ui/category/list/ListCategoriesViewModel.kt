@@ -8,6 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.victorbrndls.pfs.core.category.entity.Category
 import com.victorbrndls.pfs.core.category.usecase.ObserveCategoriesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,6 +24,9 @@ class ListCategoriesViewModel @Inject constructor(
 
     var isLoading: Boolean by mutableStateOf(false)
         private set
+
+    private val _isNavigateToAddCategory = Channel<Boolean>(Channel.CONFLATED)
+    val isNavigateToAddCategory: Flow<Boolean> = _isNavigateToAddCategory.consumeAsFlow()
 
     var closeScreen: Boolean by mutableStateOf(false)
         private set
@@ -40,7 +46,7 @@ class ListCategoriesViewModel @Inject constructor(
     }
 
     fun addNewCategory() {
-
+        _isNavigateToAddCategory.trySend(true)
     }
 
 }

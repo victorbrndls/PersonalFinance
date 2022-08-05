@@ -17,6 +17,8 @@ import com.victorbrndls.pfs.R
 import com.victorbrndls.pfs.core.category.entity.Category
 import com.victorbrndls.pfs.ui.designsystem.component.PfsHorizontalProgressBar
 import com.victorbrndls.pfs.ui.designsystem.component.PfsTopAppBar
+import com.victorbrndls.pfs.ui.route.Routes
+import kotlinx.coroutines.flow.collect
 
 @Composable
 fun ListCategoriesRoute(
@@ -25,6 +27,12 @@ fun ListCategoriesRoute(
 ) {
     if (viewModel.closeScreen) LaunchedEffect(Unit) {
         navController.popBackStack()
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.isNavigateToAddCategory.collect { navigate ->
+            if (navigate) navController.navigate(Routes.EDIT_CATEGORY)
+        }
     }
 
     ListCategoriesScreen(
@@ -88,6 +96,6 @@ private fun CategoryItem(
     Text(
         text = category.label, modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(vertical = 8.dp, horizontal = 12.dp)
     )
 }
