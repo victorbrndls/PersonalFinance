@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun ClickableOverlay(
     modifier: Modifier = Modifier,
-    onClicked: () -> Unit = {},
+    onClick: () -> Unit = {},
     content: @Composable BoxScope.() -> Unit
 ) {
     Box(modifier = modifier) {
@@ -17,7 +17,7 @@ fun ClickableOverlay(
         Box(
             modifier = Modifier
                 .matchParentSize()
-                .clickable { onClicked() }
+                .clickable { onClick() }
         )
     }
 

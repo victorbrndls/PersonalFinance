@@ -111,7 +111,7 @@ private fun EditExpenseScreen(
                 }
                 Box(modifier = textFieldSpacingModifier) {
                     ClickableOverlay(
-                        onClicked = {
+                        onClick = {
                             // TODO open calendar
                         }
                     ) {

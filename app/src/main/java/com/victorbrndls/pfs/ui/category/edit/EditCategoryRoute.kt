@@ -18,6 +18,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.victorbrndls.pfs.R
+import com.victorbrndls.pfs.core.category.entity.CategoryType
+import com.victorbrndls.pfs.ui.designsystem.component.CategoryTypeDropdownMenu
 
 @Composable
 fun EditCategoryRoute(
@@ -29,8 +31,10 @@ fun EditCategoryRoute(
     }
 
     EditCategoryDialog(
-        value = viewModel.label,
-        onValueChanged = { value -> viewModel.label = value },
+        label = viewModel.label,
+        onLabelChanged = { value -> viewModel.label = value },
+        type = viewModel.type,
+        onTypeChanged = { value -> viewModel.type = value },
         onSaveClicked = viewModel::onSaveClicked,
         onDismissRequest = { navController.popBackStack() }
     )
@@ -39,8 +43,10 @@ fun EditCategoryRoute(
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun EditCategoryDialog(
-    value: String,
-    onValueChanged: (String) -> Unit,
+    label: String,
+    onLabelChanged: (String) -> Unit,
+    type: CategoryType,
+    onTypeChanged: (CategoryType) -> Unit,
     onSaveClicked: () -> Unit,
     onDismissRequest: () -> Unit,
 ) {
@@ -61,8 +67,8 @@ fun EditCategoryDialog(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 TextField(
-                    value = value,
-                    onValueChange = onValueChanged,
+                    value = label,
+                    onValueChange = onLabelChanged,
                     label = { Text(text = stringResource(id = R.string.title_edit_category_label)) },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(
@@ -70,6 +76,13 @@ fun EditCategoryDialog(
                         imeAction = ImeAction.Done,
                     ),
                     keyboardActions = KeyboardActions(onAny = { keyboardController?.hide() })
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                CategoryTypeDropdownMenu(
+                    type = type,
+                    onTypeChanged = onTypeChanged
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))

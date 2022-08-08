@@ -111,7 +111,7 @@ private fun EditIncomeScreen(
                 }
                 Box(modifier = textFieldSpacingModifier) {
                     ClickableOverlay(
-                        onClicked = {
+                        onClick = {
                             // TODO open calendar
                         }
                     ) {

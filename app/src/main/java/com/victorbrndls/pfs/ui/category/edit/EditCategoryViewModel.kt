@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.victorbrndls.pfs.core.category.dto.EditCategoryData
+import com.victorbrndls.pfs.core.category.entity.CategoryType
 import com.victorbrndls.pfs.core.category.usecase.SaveCategoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,6 +19,8 @@ class EditCategoryViewModel @Inject constructor(
 
     var label: String by mutableStateOf("")
 
+    var type: CategoryType by mutableStateOf(CategoryType.EXPENSE)
+
     var closeScreen: Boolean by mutableStateOf(false)
         private set
 
@@ -28,6 +31,7 @@ class EditCategoryViewModel @Inject constructor(
             val expense = EditCategoryData(
                 id = null,
                 label = label.trim(),
+                type = type
             )
 
             saveCategoryUseCase.save(expense)

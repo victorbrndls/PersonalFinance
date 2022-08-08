@@ -25,6 +25,7 @@ class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {
         categories.value += Category(
             Random.nextLong(),
             expense.label,
+            expense.type
         ).also {
             Logger.d("Saved category | $it")
         }
