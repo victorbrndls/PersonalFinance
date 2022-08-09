@@ -10,7 +10,6 @@ import com.victorbrndls.pfs.core.expense.dto.EditExpenseData
 import com.victorbrndls.pfs.core.expense.usecase.SaveExpenseUseCase
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.util.*
@@ -29,9 +28,9 @@ class EditExpenseViewModel @Inject constructor(
         private set
     var category: Category? by mutableStateOf(null)
 
-    private var backingDate: Date? by mutableStateOf(Date())
-    val date: State<String> = derivedStateOf {
-        backingDate?.let { dateTranslator.format(it) } ?: ""
+    var date: Date? by mutableStateOf(null)
+    val formattedDate: State<String> = derivedStateOf {
+        date?.let { dateTranslator.format(it) } ?: ""
     }
 
     var amount: String by mutableStateOf("")
@@ -53,10 +52,6 @@ class EditExpenseViewModel @Inject constructor(
         }
     }
 
-    fun updateDate(date: Date) {
-        backingDate = date
-    }
-
     fun onSaveClicked() {
         val category = category ?: return
 
@@ -65,7 +60,7 @@ class EditExpenseViewModel @Inject constructor(
                 id = null,
                 description = description.trim(),
                 category = category,
-                date = backingDate ?: Date(),
+                date = date ?: Date(),
                 amount = amount.toBigDecimalOrNull() ?: BigDecimal.ZERO
             )
 

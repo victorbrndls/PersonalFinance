@@ -19,6 +19,8 @@
     <string name="label_expense">Expense</string>
     <string name="label_income">Income</string>
 
+    <string name="date_picker_select_date">Select date</string>
+
     <string name="content_description_save">Save</string>
     <string name="content_description_add">Add</string>
 

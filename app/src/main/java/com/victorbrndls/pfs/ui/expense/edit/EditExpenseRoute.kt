@@ -8,9 +8,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -28,6 +26,7 @@ import com.victorbrndls.pfs.R
 import com.victorbrndls.pfs.core.category.entity.Category
 import com.victorbrndls.pfs.ui.designsystem.component.CategoryDropdownMenu
 import com.victorbrndls.pfs.ui.designsystem.component.ClickableOverlay
+import com.victorbrndls.pfs.ui.designsystem.component.DatePickerDialog
 import com.victorbrndls.pfs.ui.designsystem.component.PfsTopAppBar
 import java.util.*
 
@@ -50,8 +49,9 @@ fun EditExpenseRoute(
         categories = viewModel.categories,
         category = viewModel.category,
         onCategoryChanged = { viewModel.category = it },
-        date = viewModel.date.value,
-        onDateChanged = { viewModel.updateDate(it) },
+        formattedDate = viewModel.formattedDate.value,
+        date = viewModel.date,
+        onDateChanged = { viewModel.date = it },
         amount = viewModel.amount,
         onAmountChanged = { viewModel.amount = it },
         onSaveClicked = { viewModel.onSaveClicked() },
@@ -70,7 +70,8 @@ private fun EditExpenseScreen(
     categories: List<Category>,
     category: Category?,
     onCategoryChanged: (Category) -> Unit,
-    date: String,
+    formattedDate: String,
+    date: Date?,
     onDateChanged: (Date) -> Unit,
     amount: String,
     onAmountChanged: (String) -> Unit,
@@ -125,17 +126,24 @@ private fun EditExpenseScreen(
                     )
                 }
                 Box(modifier = textFieldSpacingModifier) {
+                    var isShown by remember { mutableStateOf(false) }
+
                     ClickableOverlay(
-                        onClick = {
-                            // TODO open calendar
-                        }
+                        onClick = { isShown = true }
                     ) {
                         CustomTextField(
-                            value = date,
+                            value = formattedDate,
                             onValueChange = {},
                             labelRes = R.string.field_date_generic
                         )
                     }
+
+                    if (isShown)
+                        DatePickerDialog(
+                            date = date,
+                            onDateChanged = onDateChanged,
+                            onDismissed = { isShown = false }
+                        )
                 }
                 Box(modifier = textFieldSpacingModifier) {
                     CustomTextField(
