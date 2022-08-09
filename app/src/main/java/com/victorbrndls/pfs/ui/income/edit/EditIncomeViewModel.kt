@@ -20,9 +20,9 @@ class EditIncomeViewModel @Inject constructor(
 
     var description: String by mutableStateOf("")
 
-    private var backingDate: Date? by mutableStateOf(Date())
-    val date: State<String> = derivedStateOf {
-        backingDate?.let { dateTranslator.format(it) } ?: ""
+    var date: Date? by mutableStateOf(null)
+    val formattedDate: State<String> = derivedStateOf {
+        date?.let { dateTranslator.format(it) } ?: ""
     }
 
     var amount: String by mutableStateOf("")
@@ -30,16 +30,12 @@ class EditIncomeViewModel @Inject constructor(
     var closeScreen: Boolean by mutableStateOf(false)
         private set
 
-    fun updateDate(date: Date) {
-        backingDate = date
-    }
-
     fun onSaveClicked() {
         viewModelScope.launch {
             val income = EditIncomeData(
                 id = null,
                 description = description.trim(),
-                date = backingDate ?: Date(),
+                date = date ?: Date(),
                 amount = amount.toBigDecimalOrNull() ?: BigDecimal.ZERO
             )
 

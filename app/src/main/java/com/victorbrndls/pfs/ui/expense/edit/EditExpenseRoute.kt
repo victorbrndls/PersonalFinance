@@ -8,7 +8,9 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -25,8 +27,7 @@ import androidx.navigation.NavController
 import com.victorbrndls.pfs.R
 import com.victorbrndls.pfs.core.category.entity.Category
 import com.victorbrndls.pfs.ui.designsystem.component.CategoryDropdownMenu
-import com.victorbrndls.pfs.ui.designsystem.component.ClickableOverlay
-import com.victorbrndls.pfs.ui.designsystem.component.DatePickerDialog
+import com.victorbrndls.pfs.ui.designsystem.component.DatePickerField
 import com.victorbrndls.pfs.ui.designsystem.component.PfsTopAppBar
 import java.util.*
 
@@ -126,10 +127,9 @@ private fun EditExpenseScreen(
                     )
                 }
                 Box(modifier = textFieldSpacingModifier) {
-                    var isShown by remember { mutableStateOf(false) }
-
-                    ClickableOverlay(
-                        onClick = { isShown = true }
+                    DatePickerField(
+                        date = date,
+                        onDateChanged = onDateChanged
                     ) {
                         CustomTextField(
                             value = formattedDate,
@@ -137,13 +137,6 @@ private fun EditExpenseScreen(
                             labelRes = R.string.field_date_generic
                         )
                     }
-
-                    if (isShown)
-                        DatePickerDialog(
-                            date = date,
-                            onDateChanged = onDateChanged,
-                            onDismissed = { isShown = false }
-                        )
                 }
                 Box(modifier = textFieldSpacingModifier) {
                     CustomTextField(

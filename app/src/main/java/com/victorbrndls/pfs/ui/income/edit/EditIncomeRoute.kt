@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.victorbrndls.pfs.R
-import com.victorbrndls.pfs.ui.designsystem.component.ClickableOverlay
+import com.victorbrndls.pfs.ui.designsystem.component.DatePickerField
 import com.victorbrndls.pfs.ui.designsystem.component.PfsTopAppBar
 import java.util.*
 
@@ -45,8 +45,9 @@ fun EditIncomeRoute(
     EditIncomeScreen(
         description = viewModel.description,
         onDescriptionChanged = { viewModel.description = it },
-        date = viewModel.date.value,
-        onDateChanged = { viewModel.updateDate(it) },
+        formattedDate = viewModel.formattedDate.value,
+        date = viewModel.date,
+        onDateChanged = { viewModel.date = it },
         amount = viewModel.amount,
         onAmountChanged = { viewModel.amount = it },
         onSaveClicked = { viewModel.onSaveClicked() },
@@ -62,7 +63,8 @@ fun EditIncomeRoute(
 private fun EditIncomeScreen(
     description: String,
     onDescriptionChanged: (String) -> Unit,
-    date: String,
+    formattedDate: String,
+    date: Date?,
     onDateChanged: (Date) -> Unit,
     amount: String,
     onAmountChanged: (String) -> Unit,
@@ -91,7 +93,7 @@ private fun EditIncomeScreen(
                 .padding(innerPadding)
                 .consumedWindowInsets(innerPadding)
         ) {
-            val amountFocusRequester = remember { FocusRequester() }
+            val (dateFocusRequester) = remember { FocusRequester.createRefs() }
             val keyboardController = LocalSoftwareKeyboardController.current
 
             Column(modifier = Modifier.fillMaxSize()) {
@@ -100,25 +102,22 @@ private fun EditIncomeScreen(
                         value = description,
                         onValueChange = onDescriptionChanged,
                         labelRes = R.string.field_description_generic,
-                        onImeAction = {
-                            // TODO open calendar
-                            defaultKeyboardAction(ImeAction.Next)
-                        },
+                        onImeAction = { defaultKeyboardAction(ImeAction.Next) },
                         modifier = Modifier.focusProperties {
-                            next = amountFocusRequester
+                            next = dateFocusRequester
                         }
                     )
                 }
                 Box(modifier = textFieldSpacingModifier) {
-                    ClickableOverlay(
-                        onClick = {
-                            // TODO open calendar
-                        }
+                    DatePickerField(
+                        date = date,
+                        onDateChanged = onDateChanged,
+                        modifier = Modifier.focusRequester(dateFocusRequester)
                     ) {
                         CustomTextField(
-                            value = date,
+                            value = formattedDate,
                             onValueChange = {},
-                            labelRes = R.string.field_date_generic
+                            labelRes = R.string.field_date_generic,
                         )
                     }
                 }
@@ -130,7 +129,6 @@ private fun EditIncomeScreen(
                         keyboardType = KeyboardType.Decimal,
                         imeAction = ImeAction.Done,
                         onImeAction = { keyboardController?.hide() },
-                        modifier = Modifier.focusRequester(amountFocusRequester)
                     )
                 }
             }
