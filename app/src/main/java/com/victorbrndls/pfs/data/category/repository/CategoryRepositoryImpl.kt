@@ -2,6 +2,7 @@ package com.victorbrndls.pfs.data.category.repository
 
 import com.victorbrndls.pfs.core.category.dto.EditCategoryData
 import com.victorbrndls.pfs.core.category.entity.Category
+import com.victorbrndls.pfs.core.category.entity.CategoryType
 import com.victorbrndls.pfs.core.category.repository.CategoryRepository
 import com.victorbrndls.pfs.infrastructure.logger.Logger
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +12,7 @@ import kotlin.random.Random
 
 class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {
 
-    private val categories = MutableStateFlow(emptyList<Category>())
+    private val categories = MutableStateFlow(fakeData)
 
     override suspend fun getAll(): List<Category> {
         return categories.value
@@ -31,3 +32,26 @@ class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {
         }
     }
 }
+
+private val fakeData = listOf(
+    Category(
+        id = Random.nextLong(),
+        label = "Food",
+        type = CategoryType.EXPENSE
+    ),
+    Category(
+        id = Random.nextLong(),
+        label = "Other",
+        type = CategoryType.EXPENSE
+    ),
+    Category(
+        id = Random.nextLong(),
+        label = "Main Job",
+        type = CategoryType.INCOME
+    ),
+    Category(
+        id = Random.nextLong(),
+        label = "Other",
+        type = CategoryType.INCOME
+    ),
+)

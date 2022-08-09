@@ -2,6 +2,7 @@
     <string name="app_name">Personal Finance</string>
 
     <string name="field_description_generic">Description</string>
+    <string name="field_category_generic">Category</string>
     <string name="field_date_generic">Date</string>
     <string name="field_amount_generic">Amount</string>
 

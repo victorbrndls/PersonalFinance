@@ -1,18 +1,22 @@
 package com.victorbrndls.pfs.ui.designsystem.component
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import com.victorbrndls.pfs.R
-import com.victorbrndls.pfs.core.category.entity.CategoryType
+import com.victorbrndls.pfs.core.category.entity.Category
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun CategoryTypeDropdownMenu(
-    type: CategoryType,
-    onTypeChanged: (CategoryType) -> Unit
+fun CategoryDropdownMenu(
+    categories: List<Category>,
+    category: Category?,
+    onCategoryChanged: (Category) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var expanded by remember { mutableStateOf(false) }
@@ -21,36 +25,28 @@ fun CategoryTypeDropdownMenu(
         onClick = {
             expanded = !expanded
             keyboardController?.hide()
-        }
+        },
     ) {
         TextField(
-            value = when (type) {
-                CategoryType.INCOME -> R.string.label_income
-                CategoryType.EXPENSE -> R.string.label_expense
-            }.let { stringResource(id = it) },
+            value = category?.label ?: "",
             onValueChange = {},
-            label = { Text(text = stringResource(id = R.string.title_edit_category_type)) }
+            label = { Text(text = stringResource(id = R.string.field_category_generic)) },
+            modifier = Modifier.fillMaxWidth()
         )
 
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
-            CategoryType.values().forEach { type ->
+            categories.forEach { cat ->
                 DropdownMenuItem(
-                    text = { Text(text = stringResource(id = type.stringRes)) },
+                    text = { Text(text = cat.label) },
                     onClick = {
                         expanded = false
-                        onTypeChanged(type)
+                        onCategoryChanged(cat)
                     }
                 )
             }
         }
     }
 }
-
-private val CategoryType.stringRes: Int
-    get() = when (this) {
-        CategoryType.INCOME -> R.string.label_income
-        CategoryType.EXPENSE -> R.string.label_expense
-    }

@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.victorbrndls.pfs.R
+import com.victorbrndls.pfs.core.category.entity.Category
+import com.victorbrndls.pfs.ui.designsystem.component.CategoryDropdownMenu
 import com.victorbrndls.pfs.ui.designsystem.component.ClickableOverlay
 import com.victorbrndls.pfs.ui.designsystem.component.PfsTopAppBar
 import java.util.*
@@ -45,6 +47,9 @@ fun EditExpenseRoute(
     EditExpenseScreen(
         description = viewModel.description,
         onDescriptionChanged = { viewModel.description = it },
+        categories = viewModel.categories,
+        category = viewModel.category,
+        onCategoryChanged = { viewModel.category = it },
         date = viewModel.date.value,
         onDateChanged = { viewModel.updateDate(it) },
         amount = viewModel.amount,
@@ -62,6 +67,9 @@ fun EditExpenseRoute(
 private fun EditExpenseScreen(
     description: String,
     onDescriptionChanged: (String) -> Unit,
+    categories: List<Category>,
+    category: Category?,
+    onCategoryChanged: (Category) -> Unit,
     date: String,
     onDateChanged: (Date) -> Unit,
     amount: String,
@@ -107,6 +115,13 @@ private fun EditExpenseScreen(
                         modifier = Modifier.focusProperties {
                             next = amountFocusRequester
                         }
+                    )
+                }
+                Box(modifier = textFieldSpacingModifier) {
+                    CategoryDropdownMenu(
+                        categories = categories,
+                        category = category,
+                        onCategoryChanged = onCategoryChanged
                     )
                 }
                 Box(modifier = textFieldSpacingModifier) {

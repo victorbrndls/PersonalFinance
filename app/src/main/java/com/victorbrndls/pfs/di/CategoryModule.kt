@@ -1,10 +1,7 @@
 package com.victorbrndls.pfs.di
 
 import com.victorbrndls.pfs.core.category.repository.CategoryRepository
-import com.victorbrndls.pfs.core.category.usecase.ObserveCategoriesUseCase
-import com.victorbrndls.pfs.core.category.usecase.ObserveCategoriesUseCaseImpl
-import com.victorbrndls.pfs.core.category.usecase.SaveCategoryUseCase
-import com.victorbrndls.pfs.core.category.usecase.SaveCategoryUseCaseImpl
+import com.victorbrndls.pfs.core.category.usecase.*
 import com.victorbrndls.pfs.data.category.repository.CategoryRepositoryImpl
 import dagger.Binds
 import dagger.Module
@@ -23,6 +20,9 @@ abstract class CategoryModule {
     abstract fun observeCategoriesUseCase(
         impl: ObserveCategoriesUseCaseImpl
     ): ObserveCategoriesUseCase
+
+    @Binds
+    abstract fun getCategoriesUseCase(impl: GetCategoriesUseCaseImpl): GetCategoriesUseCase
 
     @Binds
     @Singleton

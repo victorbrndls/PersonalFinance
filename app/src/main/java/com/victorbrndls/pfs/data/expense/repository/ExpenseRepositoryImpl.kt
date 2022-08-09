@@ -18,6 +18,7 @@ class ExpenseRepositoryImpl @Inject constructor() : ExpenseRepository {
         expenses += Expense(
             Random.nextLong(),
             expense.description,
+            expense.category,
             expense.date,
             expense.amount
         ).also {
