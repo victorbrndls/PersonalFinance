@@ -3,22 +3,27 @@ package com.victorbrndls.pfs.ui.category.list
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.victorbrndls.pfs.R
 import com.victorbrndls.pfs.core.category.entity.Category
 import com.victorbrndls.pfs.ui.designsystem.component.PfsHorizontalProgressBar
 import com.victorbrndls.pfs.ui.designsystem.component.PfsTopAppBar
+import com.victorbrndls.pfs.ui.ktx.backgroundColor
+import com.victorbrndls.pfs.ui.ktx.stringRes
+import com.victorbrndls.pfs.ui.ktx.textOnBackgroundColor
 import com.victorbrndls.pfs.ui.route.Routes
-import kotlinx.coroutines.flow.collect
 
 @Composable
 fun ListCategoriesRoute(
@@ -93,9 +98,32 @@ private fun CategoryItem(
     category: Category,
     modifier: Modifier = Modifier
 ) {
-    Text(
-        text = category.label, modifier = modifier
+    val type = category.type
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp, horizontal = 12.dp)
-    )
+            .padding(vertical = 12.dp, horizontal = 12.dp)
+    ) {
+        Text(
+            text = category.label,
+            fontSize = 16.sp
+        )
+
+        Spacer(modifier = Modifier.width(16.dp))
+
+        Surface(
+            color = type.backgroundColor,
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            Text(
+                text = stringResource(id = type.stringRes),
+                fontSize = 11.sp,
+                color = type.textOnBackgroundColor,
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            )
+        }
+    }
+
 }

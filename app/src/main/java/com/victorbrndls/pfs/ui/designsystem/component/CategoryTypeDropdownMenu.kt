@@ -7,6 +7,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import com.victorbrndls.pfs.R
 import com.victorbrndls.pfs.core.category.entity.CategoryType
+import com.victorbrndls.pfs.ui.ktx.stringRes
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -48,9 +49,3 @@ fun CategoryTypeDropdownMenu(
         }
     }
 }
-
-private val CategoryType.stringRes: Int
-    get() = when (this) {
-        CategoryType.INCOME -> R.string.label_income
-        CategoryType.EXPENSE -> R.string.label_expense
-    }
