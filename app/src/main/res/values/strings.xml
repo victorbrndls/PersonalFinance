@@ -6,8 +6,10 @@
     <string name="field_date_generic">Date</string>
     <string name="field_amount_generic">Amount</string>
 
+    <string name="title_add_expense">Add Expense</string>
     <string name="title_edit_expense">Expense</string>
 
+    <string name="title_add_income">Add Income</string>
     <string name="title_edit_income">Income</string>
 
     <string name="title_add_category">Add Category</string>
