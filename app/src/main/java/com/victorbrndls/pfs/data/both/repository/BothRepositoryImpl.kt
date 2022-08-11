@@ -26,7 +26,7 @@ class BothRepositoryImpl @Inject constructor(
                     is Expense -> Both.Expense(it)
                     else -> null
                 }
-            }.sortedBy {
+            }.sortedByDescending {
                 when (it) {
                     is Both.Income -> it.income.date.time
                     is Both.Expense -> it.expense.date.time

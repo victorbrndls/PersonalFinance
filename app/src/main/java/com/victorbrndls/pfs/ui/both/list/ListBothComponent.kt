@@ -3,16 +3,17 @@ package com.victorbrndls.pfs.ui.both.list
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.victorbrndls.pfs.ui.designsystem.component.PfsHorizontalProgressBar
-import com.victorbrndls.pfs.core.expense.entity.Expense as ExpenseEntity
-import com.victorbrndls.pfs.core.income.entity.Income as IncomeEntity
+import com.victorbrndls.pfs.ui.designsystem.theme.Black10
+import com.victorbrndls.pfs.ui.designsystem.theme.Green40
+import com.victorbrndls.pfs.ui.designsystem.theme.Red40
 
 @Composable
 fun ListBothComponent(
@@ -28,7 +29,7 @@ fun ListBothComponent(
 
 @Composable
 private fun ListBothUI(
-    both: List<BothModel>,
+    both: List<BothListItem>,
     isLoading: Boolean,
     modifier: Modifier = Modifier,
 ) {
@@ -43,8 +44,9 @@ private fun ListBothUI(
                 contentType = { it::class }
             ) { item ->
                 when (item) {
-                    is BothModel.ExpenseModel -> ExpenseItem(expense = item.expense)
-                    is BothModel.IncomeModel -> IncomeItem(income = item.income)
+                    is BothDate -> DateHeader(item.date)
+                    is BothExpenseModel -> ExpenseItem(item)
+                    is BothIncomeModel -> IncomeItem(item)
                 }
             }
         }
@@ -52,12 +54,26 @@ private fun ListBothUI(
 }
 
 @Composable
+fun DateHeader(date: String) {
+    Surface(
+        color = Black10,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = date,
+            fontSize = 14.sp,
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
+        )
+    }
+}
+
+@Composable
 private fun IncomeItem(
-    income: IncomeEntity,
+    income: BothIncomeModel,
     modifier: Modifier = Modifier
 ) {
     Row(
-        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 12.dp, horizontal = 12.dp)
@@ -66,16 +82,20 @@ private fun IncomeItem(
             text = income.description,
             fontSize = 16.sp
         )
+        Text(
+            text = income.amount,
+            color = Green40
+        )
     }
 }
 
 @Composable
 private fun ExpenseItem(
-    expense: ExpenseEntity,
+    expense: BothExpenseModel,
     modifier: Modifier = Modifier
 ) {
     Row(
-        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 12.dp, horizontal = 12.dp)
@@ -83,6 +103,10 @@ private fun ExpenseItem(
         Text(
             text = expense.description,
             fontSize = 16.sp
+        )
+        Text(
+            text = expense.amount,
+            color = Red40
         )
     }
 }

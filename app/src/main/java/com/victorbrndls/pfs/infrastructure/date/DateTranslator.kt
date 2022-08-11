@@ -8,4 +8,6 @@ import java.util.*
 interface DateTranslator {
     fun parse(date: String): Date?
     fun format(date: Date): String
+
+    fun toLocalMidnight(date: Date): Date
 }
