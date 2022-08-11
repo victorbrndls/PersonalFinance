@@ -1,10 +1,7 @@
 package com.victorbrndls.pfs.di
 
 import com.victorbrndls.pfs.core.income.repository.IncomeRepository
-import com.victorbrndls.pfs.core.income.usecase.GetIncomesUseCase
-import com.victorbrndls.pfs.core.income.usecase.GetIncomesUseCaseImpl
-import com.victorbrndls.pfs.core.income.usecase.SaveIncomeUseCase
-import com.victorbrndls.pfs.core.income.usecase.SaveIncomeUseCaseImpl
+import com.victorbrndls.pfs.core.income.usecase.*
 import com.victorbrndls.pfs.data.income.repository.IncomeRepositoryImpl
 import dagger.Binds
 import dagger.Module
@@ -21,6 +18,9 @@ abstract class IncomeModule {
 
     @Binds
     abstract fun getIncomesUseCase(impl: GetIncomesUseCaseImpl): GetIncomesUseCase
+
+    @Binds
+    abstract fun observeIncomesUseCase(impl: ObserveIncomesUseCaseImpl): ObserveIncomesUseCase
 
     @Binds
     @Singleton

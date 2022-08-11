@@ -5,7 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.victorbrndls.pfs.core.both.usecase.GetBothUseCase
+import com.victorbrndls.pfs.core.both.entity.Both
+import com.victorbrndls.pfs.core.both.usecase.ObserveBothUseCase
 import com.victorbrndls.pfs.core.expense.entity.Expense
 import com.victorbrndls.pfs.core.income.entity.Income
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListBothViewModel @Inject constructor(
-    private val getBothUseCase: GetBothUseCase
+    private val observeBothUseCase: ObserveBothUseCase
 ) : ViewModel() {
 
     var both: List<BothModel> by mutableStateOf(emptyList())
@@ -29,14 +30,16 @@ class ListBothViewModel @Inject constructor(
 
     private fun loadBoth() {
         viewModelScope.launch {
-            getBothUseCase.getAll().let { both ->
-                val expenses = both.expenses.map { BothModel.ExpenseModel(it) }
-                val incomes = both.incomes.map { BothModel.IncomeModel(it) }
-                expenses + incomes
-            }.let { both = it }
+            observeBothUseCase.observe().collect { both ->
+                this@ListBothViewModel.both = both.map {
+                    when (it) {
+                        is Both.Income -> BothModel.IncomeModel(it.income)
+                        is Both.Expense -> BothModel.ExpenseModel(it.expense)
+                    }
+                }
+            }
         }
     }
-
 }
 
 sealed class BothModel(val id: Long) {
