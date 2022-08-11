@@ -12,7 +12,7 @@ import kotlin.random.Random
 
 class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {
 
-    private val categories = MutableStateFlow(fakeData)
+    private val categories = MutableStateFlow(fakeCategories)
 
     override suspend fun getAll(): List<Category> {
         return categories.value
@@ -33,7 +33,7 @@ class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {
     }
 }
 
-private val fakeData = listOf(
+val fakeCategories = listOf(
     Category(
         id = Random.nextLong(),
         label = "Food",

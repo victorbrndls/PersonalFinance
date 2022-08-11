@@ -35,6 +35,7 @@ class EditIncomeViewModel @Inject constructor(
             val income = EditIncomeData(
                 id = null,
                 description = description.trim(),
+                category = TODO(),
                 date = date ?: Date(),
                 amount = amount.toBigDecimalOrNull() ?: BigDecimal.ZERO
             )
