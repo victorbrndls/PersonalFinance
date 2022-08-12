@@ -44,10 +44,10 @@ class EditExpenseViewModel @Inject constructor(
 
     private fun observeCategories() {
         viewModelScope.launch {
-            observeCategoriesUseCase.observe().collect { cats ->
-                categories = cats
-                    .filter { it.type == CategoryType.EXPENSE }
-                    .sortedBy { it.label }
+            observeCategoriesUseCase.observe(
+                type = CategoryType.EXPENSE
+            ).collect { cats ->
+                categories = cats.sortedBy { it.label }
             }
         }
     }

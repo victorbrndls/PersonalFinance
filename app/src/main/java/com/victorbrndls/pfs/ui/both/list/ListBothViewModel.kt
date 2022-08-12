@@ -1,12 +1,11 @@
 package com.victorbrndls.pfs.ui.both.list
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.victorbrndls.pfs.core.both.entity.Both
 import com.victorbrndls.pfs.core.both.usecase.ObserveBothUseCase
+import com.victorbrndls.pfs.core.category.entity.CategoryType
 import com.victorbrndls.pfs.core.expense.entity.Expense
 import com.victorbrndls.pfs.core.income.entity.Income
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator
@@ -22,7 +21,23 @@ class ListBothViewModel @Inject constructor(
     private val moneyTranslator: MoneyTranslator,
 ) : ViewModel() {
 
-    var both: List<BothListItem> by mutableStateOf(emptyList())
+    var _both: List<Both> by mutableStateOf(emptyList())
+        private set
+
+    val both: State<List<BothListItem>> = derivedStateOf {
+        _both
+            .filter { both ->
+                val categoryType = categoryType ?: return@filter true
+                both.category.type == categoryType
+            }
+            .groupBy { dateTranslator.toLocalMidnight(it.date) }
+            .flatMap { (date, boths) ->
+                listOf(BothDate(dateTranslator.format(date))) +
+                        boths.sortedBy { it.category.type }.map { it.toModel() }
+            }
+    }
+
+    var categoryType: CategoryType? by mutableStateOf(null)
         private set
 
     var isLoading: Boolean by mutableStateOf(false)
@@ -34,15 +49,12 @@ class ListBothViewModel @Inject constructor(
 
     private fun loadBoth() {
         viewModelScope.launch {
-            observeBothUseCase.observe().collect { both ->
-                this@ListBothViewModel.both = both
-                    .groupBy { dateTranslator.toLocalMidnight(it.date) }
-                    .flatMap { (date, boths) ->
-                        listOf(BothDate(dateTranslator.format(date))) +
-                                boths.sortedBy { it.category.type }.map { it.toModel() }
-                    }
-            }
+            observeBothUseCase.observe().collect { both -> _both = both }
         }
+    }
+
+    fun updateCategoryType(type: CategoryType?) {
+        categoryType = if (type == categoryType) null else type
     }
 
     private fun Both.toModel() = when (this) {

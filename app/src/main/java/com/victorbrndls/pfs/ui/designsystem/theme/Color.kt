@@ -2,6 +2,8 @@ package com.victorbrndls.pfs.ui.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
+val Transparent = Color(0x00000000)
+
 val White = Color(0xFFFFFFFF)
 
 val Black = Color(0xFF000000)

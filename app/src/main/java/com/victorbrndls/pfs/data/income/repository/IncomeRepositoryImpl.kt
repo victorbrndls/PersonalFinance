@@ -43,56 +43,56 @@ private val fakeIncomes = listOf(
         id = Random.nextLong(),
         description = "Salary",
         category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(4560)
     ),
     Income(
         id = Random.nextLong(),
         description = "Salary",
         category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(4560)
     ),
     Income(
         id = Random.nextLong(),
         description = "Salary",
         category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(4560)
     ),
     Income(
         id = Random.nextLong(),
         description = "Salary",
         category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(4560)
     ),
     Income(
         id = Random.nextLong(),
         description = "Salary",
         category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(4560)
     ),
     Income(
         id = Random.nextLong(),
         description = "Salary",
         category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(4560)
     ),
     Income(
         id = Random.nextLong(),
         description = "Meal Voucher",
         category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(502)
     ),
     Income(
         id = Random.nextLong(),
         description = "Bike",
         category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(19000)
     ),
 )

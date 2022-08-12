@@ -7,6 +7,8 @@ import com.victorbrndls.pfs.core.category.repository.CategoryRepository
 import com.victorbrndls.pfs.infrastructure.logger.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -18,8 +20,14 @@ class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {
         return categories.value
     }
 
-    override suspend fun observe(): Flow<List<Category>> {
+    override suspend fun observe(
+        type: CategoryType?
+    ): Flow<List<Category>> {
         return categories
+            .let { flow ->
+                if (type == null) return@let flow
+                flow.map { cats -> cats.filter { it.type == type } }
+            }
     }
 
     override suspend fun save(expense: EditCategoryData) {

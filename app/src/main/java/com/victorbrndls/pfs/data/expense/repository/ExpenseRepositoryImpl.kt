@@ -43,56 +43,56 @@ private val fakeExpenses = listOf(
         id = Random.nextLong(),
         description = "4g chip",
         category = fakeCategories.filter { it.type == CategoryType.EXPENSE }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(212)
     ),
     Expense(
         id = Random.nextLong(),
         description = "Amsterdam Hotel",
         category = fakeCategories.filter { it.type == CategoryType.EXPENSE }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(2599)
     ),
     Expense(
         id = Random.nextLong(),
         description = "Bear Soaq",
         category = fakeCategories.filter { it.type == CategoryType.EXPENSE }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(30)
     ),
     Expense(
         id = Random.nextLong(),
         description = "Supermarket",
         category = fakeCategories.filter { it.type == CategoryType.EXPENSE }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(52)
     ),
     Expense(
         id = Random.nextLong(),
         description = "Personal Trainer",
         category = fakeCategories.filter { it.type == CategoryType.EXPENSE }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(20)
     ),
     Expense(
         id = Random.nextLong(),
         description = "Family dinner",
         category = fakeCategories.filter { it.type == CategoryType.EXPENSE }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(149)
     ),
     Expense(
         id = Random.nextLong(),
         description = "Car Fuel",
         category = fakeCategories.filter { it.type == CategoryType.EXPENSE }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(206)
     ),
     Expense(
         id = Random.nextLong(),
         description = "StatusInvent",
         category = fakeCategories.filter { it.type == CategoryType.EXPENSE }.random(),
-        date = Date(Date().time + Random.nextLong(-864000000, 864000000)),
+        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
         amount = BigDecimal.valueOf(59)
     ),
 )

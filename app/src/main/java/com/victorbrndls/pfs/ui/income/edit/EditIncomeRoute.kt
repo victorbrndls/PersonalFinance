@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.victorbrndls.pfs.R
+import com.victorbrndls.pfs.core.category.entity.Category
+import com.victorbrndls.pfs.ui.designsystem.component.CategoryDropdownMenu
 import com.victorbrndls.pfs.ui.designsystem.component.DatePickerField
 import com.victorbrndls.pfs.ui.designsystem.component.PfsTopAppBar
 import java.util.*
@@ -45,6 +47,9 @@ fun EditIncomeRoute(
     EditIncomeScreen(
         description = viewModel.description,
         onDescriptionChanged = { viewModel.description = it },
+        categories = viewModel.categories,
+        category = viewModel.category,
+        onCategoryChanged = { viewModel.category = it },
         formattedDate = viewModel.formattedDate.value,
         date = viewModel.date,
         onDateChanged = { viewModel.date = it },
@@ -63,6 +68,9 @@ fun EditIncomeRoute(
 private fun EditIncomeScreen(
     description: String,
     onDescriptionChanged: (String) -> Unit,
+    categories: List<Category>,
+    category: Category?,
+    onCategoryChanged: (Category) -> Unit,
     formattedDate: String,
     date: Date?,
     onDateChanged: (Date) -> Unit,
@@ -106,6 +114,13 @@ private fun EditIncomeScreen(
                         modifier = Modifier.focusProperties {
                             next = dateFocusRequester
                         }
+                    )
+                }
+                Box(modifier = textFieldSpacingModifier) {
+                    CategoryDropdownMenu(
+                        categories = categories,
+                        category = category,
+                        onCategoryChanged = onCategoryChanged
                     )
                 }
                 Box(modifier = textFieldSpacingModifier) {
