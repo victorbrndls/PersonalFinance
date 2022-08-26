@@ -37,7 +37,10 @@ private fun HomeScreen(
 ) {
     Scaffold(
         floatingActionButton = {
-            HomeFab(onNavigateToAddIncome, onNavigateToAddExpense)
+            HomeFab(
+                onNavigateToAddExpense = onNavigateToAddIncome,
+                onNavigateToAddIncome = onNavigateToAddExpense,
+            )
         }
     ) { innerPadding ->
         BoxWithConstraints(
@@ -45,15 +48,17 @@ private fun HomeScreen(
                 .padding(innerPadding)
                 .consumedWindowInsets(innerPadding)
         ) {
-            ListBothComponent(modifier = Modifier.fillMaxSize())
+            Column {
+                ListBothComponent(modifier = Modifier.fillMaxSize())
+            }
         }
     }
 }
 
 @Composable
 private fun HomeFab(
+    onNavigateToAddExpense: () -> Unit,
     onNavigateToAddIncome: () -> Unit,
-    onNavigateToAddExpense: () -> Unit
 ) {
     ExpandableFloatingActionButton(
         fabContent = {
