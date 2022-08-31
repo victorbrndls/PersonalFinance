@@ -10,7 +10,7 @@ class MoneyTranslatorImpl @Inject constructor() : MoneyTranslator {
     private val numberFormatter = NumberFormat.getCurrencyInstance()
 
     override fun parse(amount: String): BigDecimal? {
-        return null
+        return runCatching { BigDecimal(amount) }.getOrNull()
     }
 
     override fun format(amount: BigDecimal): String {

@@ -44,16 +44,6 @@ class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {
 val fakeCategories = listOf(
     Category(
         id = Random.nextLong(),
-        label = "Food",
-        type = CategoryType.EXPENSE
-    ),
-    Category(
-        id = Random.nextLong(),
-        label = "Other",
-        type = CategoryType.EXPENSE
-    ),
-    Category(
-        id = Random.nextLong(),
         label = "Main Job",
         type = CategoryType.INCOME
     ),
