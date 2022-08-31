@@ -1,6 +1,6 @@
-package com.victorbrndls.pfs.infrastructure.import
+package com.victorbrndls.pfs.infrastructure.importer
 
-import android.content.Context
+import android.app.Application
 import com.victorbrndls.pfs.R
 import com.victorbrndls.pfs.core.category.dto.EditCategoryData
 import com.victorbrndls.pfs.core.category.entity.Category
@@ -12,18 +12,19 @@ import com.victorbrndls.pfs.core.expense.usecase.SaveExpenseUseCase
 import com.victorbrndls.pfs.infrastructure.logger.Logger
 import com.victorbrndls.pfs.infrastructure.money.MoneyTranslator
 import java.util.*
+import javax.inject.Inject
 
-class CsvExpenseImporter(
-    private val context: Context,
+class CsvExpenseImporter @Inject constructor(
+    private val context: Application,
     private val saveCategoryUseCase: SaveCategoryUseCase,
     private val getCategoriesUseCase: GetCategoriesUseCase,
     private val saveExpenseUseCase: SaveExpenseUseCase,
     private val moneyTranslator: MoneyTranslator,
-) : ExpenseImporter {
+) {
 
     private val abbreviatedMonths = context.resources.getStringArray(R.array.abbreviated_months)
 
-    override suspend fun import() {
+    suspend fun import() {
         val resource = context.resources.openRawResource(R.raw.expenses)
         val lines = resource.reader().readLines()
 
