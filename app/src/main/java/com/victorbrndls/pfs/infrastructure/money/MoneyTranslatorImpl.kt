@@ -15,6 +15,15 @@ class MoneyTranslatorImpl @Inject constructor() : MoneyTranslator {
 
     override fun format(amount: BigDecimal): String {
         amount.setScale(2, RoundingMode.HALF_DOWN)
-        return numberFormatter.format(amount)
+        return numberFormatter.format(amount).filter { value ->
+            value.isDigit() || value == '.' || value == ','
+        }
     }
+
+    override fun formatWhole(amount: BigDecimal): String {
+        return numberFormatter.format(amount).filter { value ->
+            value.isDigit() || value == '.' || value == ','
+        }.dropLast(3)
+    }
+
 }

@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.victorbrndls.pfs.R
 import com.victorbrndls.pfs.ui.both.list.ListBothComponent
@@ -15,6 +16,7 @@ import com.victorbrndls.pfs.ui.designsystem.component.ExpandableFloatingActionBu
 import com.victorbrndls.pfs.ui.designsystem.component.IconTextButton
 import com.victorbrndls.pfs.ui.designsystem.theme.White
 import com.victorbrndls.pfs.ui.route.Routes
+import com.victorbrndls.pfs.ui.summary.SummaryComponent
 
 @Composable
 fun HomeRoute(
@@ -49,6 +51,12 @@ private fun HomeScreen(
                 .consumedWindowInsets(innerPadding)
         ) {
             Column {
+                Spacer(modifier = Modifier.height(8.dp))
+
+                SummaryComponent()
+
+                Spacer(modifier = Modifier.height(16.dp))
+
                 ListBothComponent(modifier = Modifier.fillMaxSize())
             }
         }

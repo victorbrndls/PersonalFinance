@@ -38,61 +38,14 @@ class IncomeRepositoryImpl @Inject constructor() : IncomeRepository {
     }
 }
 
-private val fakeIncomes = listOf(
+private const val ONE_MONTH_MILLIS = 2629800000
+
+private val fakeIncomes = (0..10).map { c ->
     Income(
         id = Random.nextLong(),
         description = "Salary",
         category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
-        amount = BigDecimal.valueOf(4560)
-    ),
-    Income(
-        id = Random.nextLong(),
-        description = "Salary",
-        category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
-        amount = BigDecimal.valueOf(4560)
-    ),
-    Income(
-        id = Random.nextLong(),
-        description = "Salary",
-        category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
-        amount = BigDecimal.valueOf(4560)
-    ),
-    Income(
-        id = Random.nextLong(),
-        description = "Salary",
-        category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
-        amount = BigDecimal.valueOf(4560)
-    ),
-    Income(
-        id = Random.nextLong(),
-        description = "Salary",
-        category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
-        amount = BigDecimal.valueOf(4560)
-    ),
-    Income(
-        id = Random.nextLong(),
-        description = "Salary",
-        category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
-        amount = BigDecimal.valueOf(4560)
-    ),
-    Income(
-        id = Random.nextLong(),
-        description = "Meal Voucher",
-        category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
-        amount = BigDecimal.valueOf(502)
-    ),
-    Income(
-        id = Random.nextLong(),
-        description = "Bike",
-        category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
-        date = Date(Date().time + Random.nextLong(-464000000, 464000000)),
-        amount = BigDecimal.valueOf(19000)
-    ),
-)
+        date = Date(Date().time - c * ONE_MONTH_MILLIS),
+        amount = BigDecimal.valueOf(8000)
+    )
+}

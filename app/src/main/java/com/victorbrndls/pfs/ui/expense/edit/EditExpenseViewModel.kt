@@ -30,7 +30,7 @@ class EditExpenseViewModel @Inject constructor(
 
     var date: Date? by mutableStateOf(null)
     val formattedDate: State<String> = derivedStateOf {
-        date?.let { dateTranslator.format(it) } ?: ""
+        date?.let { dateTranslator.formatYYYYMMDD(it) } ?: ""
     }
 
     var amount: String by mutableStateOf("")

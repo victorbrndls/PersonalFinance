@@ -7,7 +7,13 @@ import java.util.*
  */
 interface DateTranslator {
     fun parse(date: String): Date?
-    fun format(date: Date): String
+
+    /** 02/04/2010 */
+    fun formatYYYYMMDD(date: Date): String
+
+    /** Jan/22 */
+    fun formatYYMMM(date: Date): String
 
     fun toLocalMidnight(date: Date): Date
+    fun toMonthFirst(date: Date): Date
 }

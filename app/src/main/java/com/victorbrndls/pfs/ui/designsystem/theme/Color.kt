@@ -9,6 +9,7 @@ val White = Color(0xFFFFFFFF)
 val Black = Color(0xFF000000)
 val Black10 = Color(0x1A000000)
 val Black20 = Color(0x33000000)
+val Black60 = Color(0x99000000)
 
 val LightGreen40 = Color(0xFF9CCC65)
 val Green40 = Color(0xFF66BB6A)

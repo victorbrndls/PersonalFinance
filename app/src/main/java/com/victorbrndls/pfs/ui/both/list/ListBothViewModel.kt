@@ -26,13 +26,13 @@ class ListBothViewModel @Inject constructor(
 
     val both: State<List<BothListItem>> = derivedStateOf {
         _both
-            .filter { both ->
+            .filter { both -> // TODO filter is not working correctly for big lists
                 val categoryType = categoryType ?: return@filter true
                 both.category.type == categoryType
             }
             .groupBy { dateTranslator.toLocalMidnight(it.date) }
             .flatMap { (date, boths) ->
-                listOf(BothDate(dateTranslator.format(date))) +
+                listOf(BothDate(dateTranslator.formatYYYYMMDD(date))) +
                         boths.sortedBy { it.category.type }.map { it.toModel() }
             }
     }
@@ -66,7 +66,7 @@ class ListBothViewModel @Inject constructor(
         id = id,
         description = description,
         category = category.label,
-        date = dateTranslator.format(date),
+        date = dateTranslator.formatYYYYMMDD(date),
         amount = moneyTranslator.format(amount),
     )
 
@@ -74,7 +74,7 @@ class ListBothViewModel @Inject constructor(
         id = id,
         description = description,
         category = category.label,
-        date = dateTranslator.format(date),
+        date = dateTranslator.formatYYYYMMDD(date),
         amount = moneyTranslator.format(amount),
     )
 }

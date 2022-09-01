@@ -21,6 +21,11 @@
     <string name="label_expense">Expense</string>
     <string name="label_income">Income</string>
 
+    <string name="title_summary_income">Income</string>
+    <string name="title_summary_expenses">Expenses</string>
+    <string name="title_summary_net_savings">Net Savings</string>
+    <string name="title_summary_ending_balance">Ending Balance</string>
+
     <string name="date_picker_select_date">Select date</string>
 
     <string name="content_description_save">Save</string>
