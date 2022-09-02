@@ -30,7 +30,7 @@ class GetSummariesUseCaseImpl @Inject constructor(
         val aggIncomes = incomes.groupBy { dateTranslator.toMonthFirst(it.date) }
         val aggExpenses = expenses.groupBy { dateTranslator.toMonthFirst(it.date) }
 
-        return dates.map { date ->
+        val summaries = dates.map { date ->
             Summary(
                 date = date,
                 income = aggIncomes[date]?.sumOf { it.amount } ?: BigDecimal.ZERO,
@@ -38,6 +38,14 @@ class GetSummariesUseCaseImpl @Inject constructor(
                 endingBalance = BigDecimal.ZERO,
             )
         }
+
+        var endingBalance = BigDecimal.ZERO
+
+        return summaries.asReversed().map { summary ->
+            summary.copy(endingBalance = endingBalance + summary.netSavings).also {
+                endingBalance = it.endingBalance
+            }
+        }.asReversed()
     }
 
 }
