@@ -11,6 +11,7 @@ import com.victorbrndls.pfs.infrastructure.date.DateTranslator
 import com.victorbrndls.pfs.infrastructure.money.MoneyTranslator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,7 +34,11 @@ class SummaryViewModel @Inject constructor(
     private fun loadSummary() {
         viewModelScope.launch {
             isLoading = true
-            items = getSummariesUseCase.getAll().map { summary -> summary.toItem() }
+
+            items = getSummariesUseCase.getAll()
+                .filter { it.date <= Date() }
+                .map { summary -> summary.toItem() }
+
             isLoading = false
         }
     }
