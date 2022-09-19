@@ -40,8 +40,8 @@ private fun HomeScreen(
     Scaffold(
         floatingActionButton = {
             HomeFab(
-                onNavigateToAddExpense = onNavigateToAddIncome,
-                onNavigateToAddIncome = onNavigateToAddExpense,
+                onNavigateToAddExpense = onNavigateToAddExpense,
+                onNavigateToAddIncome = onNavigateToAddIncome,
             )
         }
     ) { innerPadding ->
