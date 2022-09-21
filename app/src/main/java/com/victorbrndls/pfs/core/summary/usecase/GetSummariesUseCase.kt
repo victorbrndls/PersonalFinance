@@ -1,15 +1,21 @@
 package com.victorbrndls.pfs.core.summary.usecase
 
 import com.victorbrndls.pfs.core.expense.usecase.GetExpensesUseCase
-import com.victorbrndls.pfs.core.income.entity.Income
 import com.victorbrndls.pfs.core.income.usecase.GetIncomesUseCase
 import com.victorbrndls.pfs.core.summary.entity.Summary
+import com.victorbrndls.pfs.infrastructure.date.DateRange
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator
+import com.victorbrndls.pfs.infrastructure.date.rangeLast12Months
 import java.math.BigDecimal
 import javax.inject.Inject
 
 interface GetSummariesUseCase {
-    suspend fun getAll(): List<Summary>
+    /**
+     * Summaries are returned ordered from newest to oldest
+     */
+    suspend fun getAll(
+        range: DateRange = rangeLast12Months()
+    ): List<Summary>
 }
 
 class GetSummariesUseCaseImpl @Inject constructor(
@@ -18,11 +24,16 @@ class GetSummariesUseCaseImpl @Inject constructor(
     private val dateTranslator: DateTranslator,
 ) : GetSummariesUseCase {
 
-    override suspend fun getAll(): List<Summary> {
+    override suspend fun getAll(
+        range: DateRange
+    ): List<Summary> {
         val incomes = getIncomesUseCase.getAll()
         val expenses = getExpensesUseCase.getAll()
 
         val dates = (incomes.map { it.date } + expenses.map { it.date })
+            .filter { date ->
+                date.after(range.start) && range.end?.let { end -> date.before(end) } ?: true
+            }
             .map { dateTranslator.toMonthFirst(it) }
             .toSet()
             .sortedDescending()

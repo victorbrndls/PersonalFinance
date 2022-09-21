@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.ui.summary
+package com.victorbrndls.pfs.ui.chart.income_netsavings
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -7,26 +7,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.victorbrndls.pfs.core.summary.entity.Summary
 import com.victorbrndls.pfs.core.summary.usecase.GetSummariesUseCase
-import com.victorbrndls.pfs.infrastructure.date.DateRange
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator
 import com.victorbrndls.pfs.infrastructure.date.rangeLast12Months
 import com.victorbrndls.pfs.infrastructure.money.MoneyTranslator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class SummaryViewModel @Inject constructor(
+class IncomeAndSavingsRateChartViewModel @Inject constructor(
     private val getSummariesUseCase: GetSummariesUseCase,
     private val dateTranslator: DateTranslator,
-    private val moneyTranslator: MoneyTranslator,
 ) : ViewModel() {
 
-    var items: List<SummaryItem> by mutableStateOf(emptyList())
-        private set
-
-    var isLoading: Boolean by mutableStateOf(false)
+    var entries: List<IncomeAndSavingsRateChartEntry> by mutableStateOf(emptyList())
         private set
 
     init {
@@ -35,30 +29,25 @@ class SummaryViewModel @Inject constructor(
 
     private fun loadSummary() {
         viewModelScope.launch {
-            isLoading = true
-
-            items = getSummariesUseCase.getAll(
+            // TODO what if summaries is empty?
+            entries = getSummariesUseCase.getAll(
                 range = rangeLast12Months()
-            ).map { summary -> summary.toItem() }
-
-            isLoading = false
+            )
+                .map { summary -> summary.toItem() }
+                .reversed().let { it + it } // show oldest to newest
         }
     }
 
-    private fun Summary.toItem() = SummaryItem(
+    private fun Summary.toItem() = IncomeAndSavingsRateChartEntry(
         date = dateTranslator.formatYYMMM(date),
-        income = moneyTranslator.formatWhole(income),
-        expenses = moneyTranslator.formatWhole(expenses),
-        netSavings = moneyTranslator.formatWhole(netSavings),
-        endingBalance = moneyTranslator.formatWhole(endingBalance),
+        income = income.toFloat(),
+        netSavings = netSavings.toFloat(),
     )
 
 }
 
-data class SummaryItem(
+data class IncomeAndSavingsRateChartEntry(
     val date: String,
-    val income: String,
-    val expenses: String,
-    val netSavings: String,
-    val endingBalance: String,
+    val income: Float,
+    val netSavings: Float
 )
