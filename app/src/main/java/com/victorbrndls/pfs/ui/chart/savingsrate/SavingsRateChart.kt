@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.ui.chart.income_netsavings
+package com.victorbrndls.pfs.ui.chart.savingsrate
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -10,59 +10,52 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.LargeValueFormatter
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.victorbrndls.pfs.R
 import com.victorbrndls.pfs.ui.chart.ListValueFormatter
-import com.victorbrndls.pfs.ui.designsystem.theme.Green40
-import com.victorbrndls.pfs.ui.designsystem.theme.Purple40
+import com.victorbrndls.pfs.ui.designsystem.theme.Blue40
 import com.victorbrndls.pfs.ui.ktx.defaultStyle
 
 @Composable
-fun IncomeAndSavingsRateChart(
+fun SavingsRateChart(
     modifier: Modifier = Modifier,
-    viewModel: IncomeAndSavingsRateChartViewModel = hiltViewModel()
+    viewModel: SavingsRateChartViewModel = hiltViewModel()
 ) {
-    HorizontalIncomeAndSavingsRateChart(
+    HorizontalSavingsRateChart(
         entries = viewModel.entries,
         modifier = modifier
     )
 }
 
 @Composable
-private fun HorizontalIncomeAndSavingsRateChart(
-    entries: List<IncomeAndSavingsRateChartEntry>,
+private fun HorizontalSavingsRateChart(
+    entries: List<SavingsRateChartEntry>,
     modifier: Modifier = Modifier
 ) {
-    val incomeColor = Green40.toArgb()
-    val netSavingsColor = Purple40.toArgb()
+    val savingsRateColor = Blue40.toArgb()
     val valuesToShow = 6f
 
     AndroidView(
         factory = { context ->
             LineChart(context).apply {
                 defaultStyle()
-                axisLeft.valueFormatter = LargeValueFormatter()
+                axisLeft.valueFormatter = PercentFormatter()
             }
         }, update = { view ->
             val context = view.context
 
-            val income = LineDataSet(entries.mapIndexed { idx, entry ->
-                Entry(idx.toFloat(), entry.income)
-            }, context.getString(R.string.chart_income)).apply {
-                defaultStyle()
-                color = incomeColor
-            }
-            val netSavings = LineDataSet(entries.mapIndexed { idx, entry ->
-                Entry(idx.toFloat(), entry.netSavings)
+            val savingsRate = LineDataSet(entries.mapIndexed { idx, entry ->
+                Entry(idx.toFloat(), entry.rate)
             }, context.getString(R.string.chart_net_savings)).apply {
                 defaultStyle()
-                color = netSavingsColor
+                color = savingsRateColor
             }
 
             view.xAxis.valueFormatter = ListValueFormatter(entries, converter = { it.date })
 
-            LineData(income, netSavings).apply {
+            LineData(savingsRate).apply {
                 defaultStyle()
-                setValueFormatter(LargeValueFormatter())
+                setValueFormatter(PercentFormatter())
             }.also { data ->
                 view.data = data
                 view.zoom(entries.size / valuesToShow, 1f, 0f, 0f)

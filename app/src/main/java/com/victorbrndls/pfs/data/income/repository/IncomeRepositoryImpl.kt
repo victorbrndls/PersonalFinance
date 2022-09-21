@@ -12,6 +12,7 @@ import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 import kotlin.random.Random
+import kotlin.random.nextLong
 
 class IncomeRepositoryImpl @Inject constructor() : IncomeRepository {
 
@@ -46,6 +47,6 @@ private val fakeIncomes = (0..10).map { c ->
         description = "Salary",
         category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
         date = Date(Date().time - c * ONE_MONTH_MILLIS),
-        amount = BigDecimal.valueOf(8000)
+        amount = BigDecimal.valueOf(Random.nextLong(6000, 9000))
     )
 }

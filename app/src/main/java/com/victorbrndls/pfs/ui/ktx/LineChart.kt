@@ -4,11 +4,9 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.formatter.LargeValueFormatter
 
 fun LineChart.defaultStyle() {
     axisLeft.axisMinimum = 0f
-    axisLeft.valueFormatter = LargeValueFormatter()
     axisRight.isEnabled = false
 
     xAxis.position = XAxis.XAxisPosition.BOTTOM
