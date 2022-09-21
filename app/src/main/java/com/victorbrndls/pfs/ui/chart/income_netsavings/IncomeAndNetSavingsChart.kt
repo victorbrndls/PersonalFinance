@@ -11,6 +11,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.LargeValueFormatter
 import com.victorbrndls.pfs.R
+import com.victorbrndls.pfs.ui.chart.AmountValueFormatter
 import com.victorbrndls.pfs.ui.chart.ListValueFormatter
 import com.victorbrndls.pfs.ui.designsystem.theme.Green40
 import com.victorbrndls.pfs.ui.designsystem.theme.Purple40
@@ -40,9 +41,7 @@ private fun HorizontalIncomeAndNetSavingsChart(
         factory = { context ->
             LineChart(context).apply {
                 defaultStyle()
-                axisLeft.valueFormatter = LargeValueFormatter().apply {
-                    setMaxLength(3)
-                }
+                axisLeft.valueFormatter = AmountValueFormatter(short = true)
             }
         }, update = { view ->
             val context = view.context
@@ -64,7 +63,7 @@ private fun HorizontalIncomeAndNetSavingsChart(
 
             LineData(income, netSavings).apply {
                 defaultStyle()
-                setValueFormatter(LargeValueFormatter())
+                setValueFormatter(AmountValueFormatter(short = false))
             }.also { data ->
                 view.data = data
                 view.zoom(entries.size / valuesToShow, 1f, 0f, 0f)
