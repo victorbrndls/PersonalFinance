@@ -46,7 +46,7 @@ private fun HorizontalSavingsRateChart(
 
             val savingsRate = LineDataSet(entries.mapIndexed { idx, entry ->
                 Entry(idx.toFloat(), entry.rate)
-            }, context.getString(R.string.chart_net_savings)).apply {
+            }, context.getString(R.string.chart_savings_rate)).apply {
                 defaultStyle()
                 color = savingsRateColor
             }

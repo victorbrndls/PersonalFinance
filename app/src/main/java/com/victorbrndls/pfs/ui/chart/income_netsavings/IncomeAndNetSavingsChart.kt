@@ -17,19 +17,19 @@ import com.victorbrndls.pfs.ui.designsystem.theme.Purple40
 import com.victorbrndls.pfs.ui.ktx.defaultStyle
 
 @Composable
-fun IncomeAndSavingsRateChart(
+fun IncomeAndNetSavingsChart(
     modifier: Modifier = Modifier,
-    viewModel: IncomeAndSavingsRateChartViewModel = hiltViewModel()
+    viewModel: IncomeAndNetSavingsChartViewModel = hiltViewModel()
 ) {
-    HorizontalIncomeAndSavingsRateChart(
+    HorizontalIncomeAndNetSavingsChart(
         entries = viewModel.entries,
         modifier = modifier
     )
 }
 
 @Composable
-private fun HorizontalIncomeAndSavingsRateChart(
-    entries: List<IncomeAndSavingsRateChartEntry>,
+private fun HorizontalIncomeAndNetSavingsChart(
+    entries: List<IncomeAndNetSavingsChartEntry>,
     modifier: Modifier = Modifier
 ) {
     val incomeColor = Green40.toArgb()

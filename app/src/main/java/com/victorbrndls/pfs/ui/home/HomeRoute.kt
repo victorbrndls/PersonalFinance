@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.victorbrndls.pfs.R
 import com.victorbrndls.pfs.ui.both.list.ListBothComponent
-import com.victorbrndls.pfs.ui.chart.income_netsavings.IncomeAndSavingsRateChart
+import com.victorbrndls.pfs.ui.chart.income_netsavings.IncomeAndNetSavingsChart
 import com.victorbrndls.pfs.ui.chart.savingsrate.SavingsRateChart
 import com.victorbrndls.pfs.ui.designsystem.component.ExpandableFloatingActionButton
 import com.victorbrndls.pfs.ui.designsystem.component.IconTextButton
@@ -59,7 +59,7 @@ private fun HomeScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                IncomeAndSavingsRateChart(
+                IncomeAndNetSavingsChart(
                     modifier = Modifier
                         .fillMaxWidth()
                         .aspectRatio(16 / 9.toFloat())

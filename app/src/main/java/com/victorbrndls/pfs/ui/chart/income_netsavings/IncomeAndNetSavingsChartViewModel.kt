@@ -9,18 +9,17 @@ import com.victorbrndls.pfs.core.summary.entity.Summary
 import com.victorbrndls.pfs.core.summary.usecase.GetSummariesUseCase
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator
 import com.victorbrndls.pfs.infrastructure.date.rangeLast12Months
-import com.victorbrndls.pfs.infrastructure.money.MoneyTranslator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class IncomeAndSavingsRateChartViewModel @Inject constructor(
+class IncomeAndNetSavingsChartViewModel @Inject constructor(
     private val getSummariesUseCase: GetSummariesUseCase,
     private val dateTranslator: DateTranslator,
 ) : ViewModel() {
 
-    var entries: List<IncomeAndSavingsRateChartEntry> by mutableStateOf(emptyList())
+    var entries: List<IncomeAndNetSavingsChartEntry> by mutableStateOf(emptyList())
         private set
 
     init {
@@ -38,7 +37,7 @@ class IncomeAndSavingsRateChartViewModel @Inject constructor(
         }
     }
 
-    private fun Summary.toItem() = IncomeAndSavingsRateChartEntry(
+    private fun Summary.toItem() = IncomeAndNetSavingsChartEntry(
         date = dateTranslator.formatYYMMM(date),
         income = income.toFloat(),
         netSavings = netSavings.toFloat(),
@@ -46,7 +45,7 @@ class IncomeAndSavingsRateChartViewModel @Inject constructor(
 
 }
 
-data class IncomeAndSavingsRateChartEntry(
+data class IncomeAndNetSavingsChartEntry(
     val date: String,
     val income: Float,
     val netSavings: Float
