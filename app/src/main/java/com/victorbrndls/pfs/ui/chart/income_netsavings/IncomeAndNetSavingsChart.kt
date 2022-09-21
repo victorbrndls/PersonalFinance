@@ -40,7 +40,9 @@ private fun HorizontalIncomeAndNetSavingsChart(
         factory = { context ->
             LineChart(context).apply {
                 defaultStyle()
-                axisLeft.valueFormatter = LargeValueFormatter()
+                axisLeft.valueFormatter = LargeValueFormatter().apply {
+                    setMaxLength(3)
+                }
             }
         }, update = { view ->
             val context = view.context
