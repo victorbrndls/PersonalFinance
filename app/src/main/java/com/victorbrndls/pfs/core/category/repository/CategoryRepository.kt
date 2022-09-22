@@ -6,7 +6,10 @@ import com.victorbrndls.pfs.core.category.entity.CategoryType
 import kotlinx.coroutines.flow.Flow
 
 interface CategoryRepository {
-    suspend fun getAll(): List<Category>
+    suspend fun getAll(
+        type: CategoryType? = null
+    ): List<Category>
+
     suspend fun observe(
         type: CategoryType? = null
     ): Flow<List<Category>>

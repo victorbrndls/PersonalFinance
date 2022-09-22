@@ -26,7 +26,7 @@ class ListBothViewModel @Inject constructor(
 
     val both: State<List<BothListItem>> = derivedStateOf {
         _both
-            .filter { both -> // TODO filter is not working correctly for big lists
+            .filter { both ->
                 val categoryType = categoryType ?: return@filter true
                 both.category.type == categoryType
             }

@@ -33,13 +33,15 @@ class CsvExpenseImporter @Inject constructor(
         Logger.d("Read ${expenses.size} possible expenses")
 
         val categories = expenses.mapNotNull { parseCategory(it) }.toSet()
-        val existingCategories = getCategoriesUseCase.getAll().map { it.label }.toSet()
+        val existingCategories = getCategoriesUseCase.getAll(
+            type = CategoryType.EXPENSE
+        ).map { it.label }.toSet()
 
         val newCategories = categories - existingCategories
         newCategories.forEach { createCategory(it) }
         Logger.d("Read ${categories.size} categories, creating ${newCategories.size} new ones")
 
-        val updatedCategories = getCategoriesUseCase.getAll()
+        val updatedCategories = getCategoriesUseCase.getAll(type = CategoryType.EXPENSE)
         expenses.forEach { createExpense(it, updatedCategories) }
         Logger.d("Saved ${expenses.size} expenses")
     }

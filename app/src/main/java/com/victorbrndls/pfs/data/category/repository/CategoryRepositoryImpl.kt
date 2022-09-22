@@ -16,8 +16,11 @@ class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {
 
     private val categories = MutableStateFlow(fakeCategories)
 
-    override suspend fun getAll(): List<Category> {
-        return categories.value
+    override suspend fun getAll(type: CategoryType?): List<Category> {
+        return categories.value.let { list ->
+            if (type == null) return list
+            list.filter { it.type == type }
+        }
     }
 
     override suspend fun observe(
