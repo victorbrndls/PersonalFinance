@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.ui.transaction.add
+package com.victorbrndls.pfs.ui.transaction.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit

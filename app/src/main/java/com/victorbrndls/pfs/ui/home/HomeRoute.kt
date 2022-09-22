@@ -61,8 +61,9 @@ private fun HomeScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 12.dp)
                 ) {
                     Button(onClick = { onNavigateToCharts() }) {
                         Text(text = stringResource(id = R.string.title_charts))

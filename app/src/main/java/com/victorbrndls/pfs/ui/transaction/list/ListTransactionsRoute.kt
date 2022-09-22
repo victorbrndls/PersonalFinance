@@ -6,8 +6,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.victorbrndls.pfs.R
+import com.victorbrndls.pfs.ui.designsystem.component.PfsTopAppBar
 import com.victorbrndls.pfs.ui.route.Routes
-import com.victorbrndls.pfs.ui.transaction.add.AddTransactionsFab
+import com.victorbrndls.pfs.ui.transaction.component.AddTransactionsFab
 
 @Composable
 fun ListTransactionsRoute(
@@ -16,6 +18,7 @@ fun ListTransactionsRoute(
     ListTransactionsScreen(
         onNavigateToAddExpense = { navController.navigate(Routes.EDIT_EXPENSE) },
         onNavigateToAddIncome = { navController.navigate(Routes.EDIT_INCOME) },
+        onNavigateUp = { navController.navigateUp() },
     )
 }
 
@@ -24,9 +27,15 @@ fun ListTransactionsRoute(
 private fun ListTransactionsScreen(
     onNavigateToAddExpense: () -> Unit,
     onNavigateToAddIncome: () -> Unit,
+    onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
+        topBar = {
+            PfsTopAppBar(
+                titleRes = R.string.title_list_transaction,
+                onNavigationClick = { onNavigateUp() })
+        },
         floatingActionButton = {
             AddTransactionsFab(
                 onNavigateToAddExpense = onNavigateToAddExpense,

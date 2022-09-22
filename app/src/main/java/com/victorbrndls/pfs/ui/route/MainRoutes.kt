@@ -27,7 +27,7 @@ fun MainRoutes() {
         composable(Routes.LIST_CATEGORIES) { ListCategoriesRoute(navController) }
         dialog(Routes.EDIT_CATEGORY) { EditCategoryRoute(navController) }
 
-        composable(Routes.CHARTS) { ChartsRoute() }
+        composable(Routes.CHARTS) { ChartsRoute(navController) }
 
         composable(Routes.LIST_TRANSACTIONS) { ListTransactionsRoute(navController) }
     }
