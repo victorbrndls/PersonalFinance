@@ -10,8 +10,8 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.victorbrndls.pfs.R
-import com.victorbrndls.pfs.ui.chart.ListValueFormatter
-import com.victorbrndls.pfs.ui.chart.PercentFormatter
+import com.victorbrndls.pfs.ui.chart.formatter.ListValueFormatter
+import com.victorbrndls.pfs.ui.chart.formatter.PercentFormatter
 import com.victorbrndls.pfs.ui.designsystem.theme.Blue40
 import com.victorbrndls.pfs.ui.ktx.defaultStyle
 

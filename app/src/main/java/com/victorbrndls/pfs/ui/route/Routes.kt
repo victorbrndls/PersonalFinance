@@ -9,4 +9,6 @@ object Routes {
 
     const val LIST_CATEGORIES = "/category/list"
     const val EDIT_CATEGORY = "/category/edit"
+
+    const val CHARTS = "/charts"
 }

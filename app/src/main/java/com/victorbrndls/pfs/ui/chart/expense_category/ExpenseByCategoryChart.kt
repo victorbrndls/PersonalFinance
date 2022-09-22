@@ -11,8 +11,8 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.victorbrndls.pfs.ui.chart.AmountValueFormatter
-import com.victorbrndls.pfs.ui.chart.ListValueFormatter
+import com.victorbrndls.pfs.ui.chart.formatter.AmountValueFormatter
+import com.victorbrndls.pfs.ui.chart.formatter.ListValueFormatter
 import com.victorbrndls.pfs.ui.designsystem.theme.Blue40
 import com.victorbrndls.pfs.ui.designsystem.theme.Green40
 import com.victorbrndls.pfs.ui.designsystem.theme.Purple40

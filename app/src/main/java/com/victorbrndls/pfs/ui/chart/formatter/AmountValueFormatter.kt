@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.ui.chart
+package com.victorbrndls.pfs.ui.chart.formatter
 
 import com.github.mikephil.charting.formatter.LargeValueFormatter
 

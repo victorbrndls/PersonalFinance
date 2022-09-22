@@ -9,10 +9,9 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.LargeValueFormatter
 import com.victorbrndls.pfs.R
-import com.victorbrndls.pfs.ui.chart.AmountValueFormatter
-import com.victorbrndls.pfs.ui.chart.ListValueFormatter
+import com.victorbrndls.pfs.ui.chart.formatter.AmountValueFormatter
+import com.victorbrndls.pfs.ui.chart.formatter.ListValueFormatter
 import com.victorbrndls.pfs.ui.designsystem.theme.Green40
 import com.victorbrndls.pfs.ui.designsystem.theme.Purple40
 import com.victorbrndls.pfs.ui.ktx.defaultStyle

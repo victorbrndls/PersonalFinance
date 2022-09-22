@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -12,9 +13,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.victorbrndls.pfs.R
 import com.victorbrndls.pfs.ui.both.list.ListBothComponent
-import com.victorbrndls.pfs.ui.chart.expense_category.ExpenseByCategoryChart
-import com.victorbrndls.pfs.ui.chart.income_netsavings.IncomeAndNetSavingsChart
-import com.victorbrndls.pfs.ui.chart.savingsrate.SavingsRateChart
 import com.victorbrndls.pfs.ui.designsystem.component.ExpandableFloatingActionButton
 import com.victorbrndls.pfs.ui.designsystem.component.IconTextButton
 import com.victorbrndls.pfs.ui.designsystem.theme.White
@@ -29,6 +27,7 @@ fun HomeRoute(
         onNavigateToListCategories = { navController.navigate(Routes.LIST_CATEGORIES) },
         onNavigateToAddExpense = { navController.navigate(Routes.EDIT_EXPENSE) },
         onNavigateToAddIncome = { navController.navigate(Routes.EDIT_INCOME) },
+        onNavigateToCharts = { navController.navigate(Routes.CHARTS) }
     )
 }
 
@@ -38,6 +37,7 @@ private fun HomeScreen(
     onNavigateToListCategories: () -> Unit,
     onNavigateToAddExpense: () -> Unit,
     onNavigateToAddIncome: () -> Unit,
+    onNavigateToCharts: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -60,23 +60,14 @@ private fun HomeScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-//                IncomeAndNetSavingsChart(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .aspectRatio(16 / 9.toFloat())
-//                )
-//
-//                SavingsRateChart(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .aspectRatio(16 / 9.toFloat())
-//                )
-
-                ExpenseByCategoryChart(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(16 / 9.toFloat())
-                )
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Button(onClick = { onNavigateToCharts() }) {
+                        Text(text = stringResource(id = R.string.title_charts))
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
