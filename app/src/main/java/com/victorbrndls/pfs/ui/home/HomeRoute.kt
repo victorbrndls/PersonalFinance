@@ -5,14 +5,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.victorbrndls.pfs.R
-import com.victorbrndls.pfs.ui.both.list.ListBothComponent
 import com.victorbrndls.pfs.ui.designsystem.component.ExpandableFloatingActionButton
 import com.victorbrndls.pfs.ui.designsystem.component.IconTextButton
 import com.victorbrndls.pfs.ui.designsystem.theme.White
@@ -27,7 +25,8 @@ fun HomeRoute(
         onNavigateToListCategories = { navController.navigate(Routes.LIST_CATEGORIES) },
         onNavigateToAddExpense = { navController.navigate(Routes.EDIT_EXPENSE) },
         onNavigateToAddIncome = { navController.navigate(Routes.EDIT_INCOME) },
-        onNavigateToCharts = { navController.navigate(Routes.CHARTS) }
+        onNavigateToCharts = { navController.navigate(Routes.CHARTS) },
+        onNavigateToTransactions = { navController.navigate(Routes.LIST_TRANSACTIONS) },
     )
 }
 
@@ -38,6 +37,7 @@ private fun HomeScreen(
     onNavigateToAddExpense: () -> Unit,
     onNavigateToAddIncome: () -> Unit,
     onNavigateToCharts: () -> Unit,
+    onNavigateToTransactions: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -60,18 +60,18 @@ private fun HomeScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Box(
+                Row(
                     modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     Button(onClick = { onNavigateToCharts() }) {
                         Text(text = stringResource(id = R.string.title_charts))
                     }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Button(onClick = { onNavigateToTransactions() }) {
+                        Text(text = stringResource(id = R.string.title_list_transaction))
+                    }
                 }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                ListBothComponent(modifier = Modifier.fillMaxSize())
             }
         }
     }

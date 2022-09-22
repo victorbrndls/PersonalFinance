@@ -11,4 +11,6 @@ object Routes {
     const val EDIT_CATEGORY = "/category/edit"
 
     const val CHARTS = "/charts"
+
+    const val LIST_TRANSACTIONS = "/transaction/list"
 }

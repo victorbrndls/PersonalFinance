@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.ui.both.list
+package com.victorbrndls.pfs.ui.transaction.list
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel

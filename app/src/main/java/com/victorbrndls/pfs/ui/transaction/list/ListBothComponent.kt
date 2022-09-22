@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.ui.both.list
+package com.victorbrndls.pfs.ui.transaction.list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

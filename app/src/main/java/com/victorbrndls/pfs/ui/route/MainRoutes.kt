@@ -11,6 +11,7 @@ import com.victorbrndls.pfs.ui.chart.ChartsRoute
 import com.victorbrndls.pfs.ui.expense.edit.EditExpenseRoute
 import com.victorbrndls.pfs.ui.home.HomeRoute
 import com.victorbrndls.pfs.ui.income.edit.EditIncomeRoute
+import com.victorbrndls.pfs.ui.transaction.list.ListTransactionsRoute
 
 @Composable
 fun MainRoutes() {
@@ -27,5 +28,7 @@ fun MainRoutes() {
         dialog(Routes.EDIT_CATEGORY) { EditCategoryRoute(navController) }
 
         composable(Routes.CHARTS) { ChartsRoute() }
+
+        composable(Routes.LIST_TRANSACTIONS) { ListTransactionsRoute(navController) }
     }
 }
