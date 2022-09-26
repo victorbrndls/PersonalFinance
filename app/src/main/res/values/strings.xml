@@ -30,6 +30,8 @@
 
     <string name="title_list_transaction">Transactions</string>
 
+    <string name="title_budget">Budget</string>
+
     <string name="chart_income">Income</string>
     <string name="chart_savings_rate">Savings Rate</string>
     <string name="chart_net_savings">Net Savings</string>

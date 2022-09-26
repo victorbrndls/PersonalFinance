@@ -91,7 +91,6 @@ private fun HomeScreen(
                         modifier = Modifier
                             .padding(top = contentTopPadding)
                             .fillMaxWidth()
-                            .height(140.dp)
                             .padding(horizontal = 16.dp)
                             .shadow(4.dp, RoundedCornerShape(12.dp))
                             .background(White, RoundedCornerShape(12.dp))
@@ -108,116 +107,6 @@ private fun HomeScreen(
                 SummaryComponent()
 
                 Spacer(modifier = Modifier.height(16.dp))
-            }
-        }
-    }
-}
-
-@Composable
-private fun HomeFab(
-    onNavigateToAddExpense: () -> Unit,
-    onNavigateToAddIncome: () -> Unit,
-) {
-    ExpandableFloatingActionButton(
-        fabContent = {
-            Icon(
-                imageVector = Icons.Filled.Edit,
-                contentDescription = stringResource(id = R.string.content_description_add),
-                tint = MaterialTheme.colorScheme.onSurface,
-            )
-        }
-    ) {
-        IconTextButton(
-            onClick = { onNavigateToAddIncome().also { close() } },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_add_24_black),
-                    tint = White,
-                    contentDescription = stringResource(id = R.string.title_add_income)
-                )
-            },
-            text = {
-                Text(text = stringResource(id = R.string.title_add_income))
-            }
-        )
-
-        IconTextButton(
-            onClick = { onNavigateToAddExpense().also { close() } },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_remove_24_black),
-                    tint = White,
-                    contentDescription = stringResource(id = R.string.title_add_expense)
-                )
-            },
-            text = {
-                Text(text = stringResource(id = R.string.title_add_expense))
-            }
-        )
-    }
-}
-
-@Composable
-fun HomeQuickMenu(
-    onNavigateToCharts: () -> Unit,
-    onNavigateToTransactions: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val buttonColors = ButtonDefaults.buttonColors(
-        containerColor = Purple40
-    )
-
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
-        contentPadding = PaddingValues(8.dp),
-        modifier = modifier,
-    ) {
-        item {
-            Button(
-                onClick = { onNavigateToCharts() },
-                shape = RoundedCornerShape(12.dp),
-                contentPadding = PaddingValues(4.dp),
-                colors = buttonColors,
-                modifier = Modifier
-                    .aspectRatio(1f)
-                    .padding(4.dp)
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_bar_chart_24_black),
-                        tint = White,
-                        contentDescription = stringResource(id = R.string.title_charts),
-                        modifier = Modifier.fillMaxSize(0.6f)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = stringResource(id = R.string.title_charts))
-                }
-            }
-        }
-        item {
-            Button(
-                onClick = { onNavigateToTransactions() },
-                shape = RoundedCornerShape(12.dp),
-                contentPadding = PaddingValues(4.dp),
-                colors = buttonColors,
-                modifier = Modifier
-                    .aspectRatio(1f)
-                    .padding(4.dp)
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_compare_arrows_24_black),
-                        tint = White,
-                        contentDescription = stringResource(id = R.string.title_list_transaction),
-                        modifier = Modifier.fillMaxSize(0.6f)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = stringResource(id = R.string.title_list_transaction))
-                }
             }
         }
     }
