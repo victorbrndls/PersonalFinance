@@ -36,6 +36,10 @@
     <string name="chart_savings_rate">Savings Rate</string>
     <string name="chart_net_savings">Net Savings</string>
 
+    <string name="chart_title_income_and_net_savings">Income and Net Savings</string>
+    <string name="chart_title_savings_rate">Savings Rate</string>
+    <string name="chart_title_categories_by_month">Expenses by Category (Monthly)</string>
+
     <string name="date_picker_select_date">Select date</string>
 
     <string name="content_description_save">Save</string>
