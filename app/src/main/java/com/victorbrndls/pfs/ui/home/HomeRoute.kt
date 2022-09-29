@@ -51,14 +51,7 @@ private fun HomeScreen(
     onNavigateToTransactions: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Scaffold(
-        floatingActionButton = {
-            HomeFab(
-                onNavigateToAddExpense = onNavigateToAddExpense,
-                onNavigateToAddIncome = onNavigateToAddIncome,
-            )
-        }
-    ) { innerPadding ->
+    Scaffold() { innerPadding ->
         BoxWithConstraints(
             modifier = modifier
                 .padding(innerPadding)
@@ -96,8 +89,10 @@ private fun HomeScreen(
                             .background(White, RoundedCornerShape(12.dp))
                     ) {
                         HomeQuickMenu(
+                            onNavigateToAddExpense = onNavigateToAddExpense,
+                            onNavigateToAddIncome = onNavigateToAddIncome,
+                            onNavigateToListCategories = onNavigateToListCategories,
                             onNavigateToCharts = onNavigateToCharts,
-                            onNavigateToTransactions = onNavigateToTransactions,
                         )
                     }
                 }

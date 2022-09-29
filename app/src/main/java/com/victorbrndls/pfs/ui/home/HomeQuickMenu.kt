@@ -19,8 +19,10 @@ import com.victorbrndls.pfs.ui.designsystem.theme.White
 
 @Composable
 internal fun HomeQuickMenu(
+    onNavigateToAddExpense: () -> Unit,
+    onNavigateToAddIncome: () -> Unit,
+    onNavigateToListCategories: () -> Unit,
     onNavigateToCharts: () -> Unit,
-    onNavigateToTransactions: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     // TODO remove fling
@@ -31,16 +33,30 @@ internal fun HomeQuickMenu(
     ) {
         item {
             VerticalButton(
-                text = stringResource(id = R.string.title_charts),
-                iconId = R.drawable.ic_baseline_bar_chart_24_black,
-                onClick = onNavigateToCharts,
+                text = stringResource(id = R.string.title_add_expense),
+                iconId = R.drawable.ic_baseline_add_24_black,
+                onClick = onNavigateToAddExpense,
             )
         }
         item {
             VerticalButton(
-                text = stringResource(id = R.string.title_list_transaction),
-                iconId = R.drawable.ic_baseline_compare_arrows_24_black,
-                onClick = onNavigateToTransactions,
+                text = stringResource(id = R.string.title_add_income),
+                iconId = R.drawable.ic_baseline_remove_24_black,
+                onClick = onNavigateToAddIncome,
+            )
+        }
+        item {
+            VerticalButton(
+                text = stringResource(id = R.string.title_list_categories),
+                iconId = R.drawable.ic_baseline_bookmarks_24_black,
+                onClick = onNavigateToListCategories,
+            )
+        }
+        item {
+            VerticalButton(
+                text = stringResource(id = R.string.title_charts),
+                iconId = R.drawable.ic_baseline_bar_chart_24_black,
+                onClick = onNavigateToCharts,
             )
         }
         item {
