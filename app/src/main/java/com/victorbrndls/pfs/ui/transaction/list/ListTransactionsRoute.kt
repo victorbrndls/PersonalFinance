@@ -48,7 +48,7 @@ private fun ListTransactionsScreen(
                 .padding(innerPadding)
                 .consumedWindowInsets(innerPadding)
         ) {
-            ListBothComponent(modifier = Modifier.fillMaxSize())
+            ListTransactionComponent(modifier = Modifier.fillMaxSize())
         }
     }
 }

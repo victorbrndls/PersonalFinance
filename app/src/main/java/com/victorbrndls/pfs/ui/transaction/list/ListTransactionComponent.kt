@@ -22,12 +22,12 @@ import com.victorbrndls.pfs.ui.designsystem.theme.Transparent
 import com.victorbrndls.pfs.ui.ktx.stringRes
 
 @Composable
-fun ListBothComponent(
+fun ListTransactionComponent(
     modifier: Modifier = Modifier,
-    viewModel: ListBothViewModel = hiltViewModel(),
+    viewModel: ListTransactionViewModel = hiltViewModel(),
 ) {
-    ListBothUI(
-        both = viewModel.both.value,
+    ListTransactionUI(
+        transactions = viewModel.transactions.value,
         filteredCategoryType = viewModel.categoryType,
         onCategoryTypeSelected = { viewModel.updateCategoryType(it) },
         isLoading = viewModel.isLoading,
@@ -36,8 +36,8 @@ fun ListBothComponent(
 }
 
 @Composable
-private fun ListBothUI(
-    both: List<BothListItem>,
+private fun ListTransactionUI(
+    transactions: List<TransactionListItem>,
     filteredCategoryType: CategoryType?,
     onCategoryTypeSelected: (CategoryType) -> Unit,
     isLoading: Boolean,
@@ -54,14 +54,14 @@ private fun ListBothUI(
             )
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(
-                    items = both,
+                    items = transactions,
                     key = { it.id },
                     contentType = { it::class }
                 ) { item ->
                     when (item) {
-                        is BothDate -> DateHeader(item.date)
-                        is BothExpenseModel -> ExpenseItem(item)
-                        is BothIncomeModel -> IncomeItem(item)
+                        is TransactionDate -> DateHeader(item.date)
+                        is TransactionExpenseModel -> ExpenseItem(item)
+                        is TransactionIncomeModel -> IncomeItem(item)
                     }
                 }
             }
@@ -87,12 +87,12 @@ fun DateHeader(date: String) {
 
 @Composable
 private fun IncomeItem(
-    income: BothIncomeModel,
+    income: TransactionIncomeModel,
     modifier: Modifier = Modifier
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.bothDefault()
+        modifier = modifier.transactionDefault()
     ) {
         Text(
             text = income.description,
@@ -107,12 +107,12 @@ private fun IncomeItem(
 
 @Composable
 private fun ExpenseItem(
-    expense: BothExpenseModel,
+    expense: TransactionExpenseModel,
     modifier: Modifier = Modifier
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.bothDefault()
+        modifier = modifier.transactionDefault()
     ) {
         Text(
             text = expense.description,
@@ -151,6 +151,6 @@ fun CategoryTypeFilter(
     }
 }
 
-private fun Modifier.bothDefault() =
+private fun Modifier.transactionDefault() =
     fillMaxWidth()
         .padding(vertical = 6.dp, horizontal = 12.dp)

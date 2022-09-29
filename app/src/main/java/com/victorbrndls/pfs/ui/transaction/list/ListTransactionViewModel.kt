@@ -3,8 +3,8 @@ package com.victorbrndls.pfs.ui.transaction.list
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.victorbrndls.pfs.core.both.entity.Both
-import com.victorbrndls.pfs.core.both.usecase.ObserveBothUseCase
+import com.victorbrndls.pfs.core.transaction.entity.Transaction
+import com.victorbrndls.pfs.core.transaction.usecase.ObserveTransactionsUseCase
 import com.victorbrndls.pfs.core.category.entity.CategoryType
 import com.victorbrndls.pfs.core.expense.entity.Expense
 import com.victorbrndls.pfs.core.income.entity.Income
@@ -15,25 +15,25 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ListBothViewModel @Inject constructor(
-    private val observeBothUseCase: ObserveBothUseCase,
+class ListTransactionViewModel @Inject constructor(
+    private val observeTransactionsUseCase: ObserveTransactionsUseCase,
     private val dateTranslator: DateTranslator,
     private val moneyTranslator: MoneyTranslator,
 ) : ViewModel() {
 
-    var _both: List<Both> by mutableStateOf(emptyList())
+    var _transactions: List<Transaction> by mutableStateOf(emptyList())
         private set
 
-    val both: State<List<BothListItem>> = derivedStateOf {
-        _both
-            .filter { both ->
+    val transactions: State<List<TransactionListItem>> = derivedStateOf {
+        _transactions
+            .filter { transaction ->
                 val categoryType = categoryType ?: return@filter true
-                both.category.type == categoryType
+                transaction.category.type == categoryType
             }
             .groupBy { dateTranslator.toLocalMidnight(it.date) }
-            .flatMap { (date, boths) ->
-                listOf(BothDate(dateTranslator.formatYYYYMMDD(date))) +
-                        boths.sortedBy { it.category.type }.map { it.toModel() }
+            .flatMap { (date, transactions) ->
+                listOf(TransactionDate(dateTranslator.formatYYYYMMDD(date))) +
+                        transactions.sortedBy { it.category.type }.map { it.toModel() }
             }
     }
 
@@ -44,12 +44,14 @@ class ListBothViewModel @Inject constructor(
         private set
 
     init {
-        loadBoth()
+        loadTransactions()
     }
 
-    private fun loadBoth() {
+    private fun loadTransactions() {
         viewModelScope.launch {
-            observeBothUseCase.observe().collect { both -> _both = both }
+            observeTransactionsUseCase.observe().collect { transactions ->
+                _transactions = transactions
+            }
         }
     }
 
@@ -57,12 +59,12 @@ class ListBothViewModel @Inject constructor(
         categoryType = if (type == categoryType) null else type
     }
 
-    private fun Both.toModel() = when (this) {
-        is Both.Income -> income.toModel()
-        is Both.Expense -> expense.toModel()
+    private fun Transaction.toModel() = when (this) {
+        is Transaction.Income -> income.toModel()
+        is Transaction.Expense -> expense.toModel()
     }
 
-    private fun Income.toModel() = BothIncomeModel(
+    private fun Income.toModel() = TransactionIncomeModel(
         id = id,
         description = description,
         category = category.label,
@@ -70,7 +72,7 @@ class ListBothViewModel @Inject constructor(
         amount = moneyTranslator.format(amount),
     )
 
-    private fun Expense.toModel() = BothExpenseModel(
+    private fun Expense.toModel() = TransactionExpenseModel(
         id = id,
         description = description,
         category = category.label,
@@ -79,28 +81,28 @@ class ListBothViewModel @Inject constructor(
     )
 }
 
-sealed interface BothListItem {
+sealed interface TransactionListItem {
     val id: Any
 }
 
-data class BothDate(
+data class TransactionDate(
     val date: String
-) : BothListItem {
+) : TransactionListItem {
     override val id = date
 }
 
-data class BothIncomeModel(
+data class TransactionIncomeModel(
     override val id: Long,
     val description: String,
     val category: String,
     val date: String,
     val amount: String
-) : BothListItem
+) : TransactionListItem
 
-data class BothExpenseModel(
+data class TransactionExpenseModel(
     override val id: Long,
     val description: String,
     val category: String,
     val date: String,
     val amount: String
-) : BothListItem
+) : TransactionListItem

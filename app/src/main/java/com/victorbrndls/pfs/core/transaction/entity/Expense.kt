@@ -1,13 +1,13 @@
-package com.victorbrndls.pfs.core.both.entity
+package com.victorbrndls.pfs.core.transaction.entity
 
 import com.victorbrndls.pfs.core.category.entity.Category
 import java.util.*
 import com.victorbrndls.pfs.core.expense.entity.Expense as ExpenseEntity
 import com.victorbrndls.pfs.core.income.entity.Income as IncomeEntity
 
-sealed interface Both {
-    data class Income(val income: IncomeEntity) : Both
-    data class Expense(val expense: ExpenseEntity) : Both
+sealed interface Transaction {
+    data class Income(val income: IncomeEntity) : Transaction
+    data class Expense(val expense: ExpenseEntity) : Transaction
 
     val category: Category
         get() = when (this) {
