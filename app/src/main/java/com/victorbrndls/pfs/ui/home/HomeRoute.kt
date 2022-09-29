@@ -2,25 +2,19 @@ package com.victorbrndls.pfs.ui.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.*
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.victorbrndls.pfs.R
-import com.victorbrndls.pfs.ui.designsystem.component.ExpandableFloatingActionButton
-import com.victorbrndls.pfs.ui.designsystem.component.IconTextButton
 import com.victorbrndls.pfs.ui.designsystem.shape.SemiOvalShape
 import com.victorbrndls.pfs.ui.designsystem.theme.Purple20
 import com.victorbrndls.pfs.ui.designsystem.theme.Purple40
@@ -57,7 +51,9 @@ private fun HomeScreen(
                 .padding(innerPadding)
                 .consumedWindowInsets(innerPadding)
         ) {
-            Column {
+            Column(
+                modifier = modifier.verticalScroll(state = rememberScrollState())
+            ) {
                 Box {
                     val boxHeight by remember { mutableStateOf(120.dp) }
                     val contentTopPadding by derivedStateOf { boxHeight * 0.50f }

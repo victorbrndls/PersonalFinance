@@ -66,6 +66,9 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
     kapt 'com.google.dagger:hilt-android-compiler:2.42'
 
+    // Accompanist
+    implementation "com.google.accompanist:accompanist-flowlayout:0.26.4-beta"
+
     // Charts
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
