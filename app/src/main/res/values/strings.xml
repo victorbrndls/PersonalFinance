@@ -30,6 +30,8 @@
 
     <string name="title_list_transaction">Transactions</string>
 
+    <string name="transaction_see_more">See More</string>
+
     <string name="title_budget">Budget</string>
 
     <string name="chart_income">Income</string>

@@ -7,7 +7,7 @@ class ListValueFormatter<T>(
     val converter: (T) -> String
 ) : ValueFormatter() {
     override fun getFormattedValue(value: Float): String {
-        if (value < 0f) return ""
-        return converter(list[value.toInt()])
+        val item = list.getOrNull(value.toInt()) ?: return ""
+        return converter(item)
     }
 }

@@ -18,7 +18,7 @@ class DateTranslatorImpl @Inject constructor() : DateTranslator {
         timeZone = utc
     }
 
-    private val mmmDDFormatter = SimpleDateFormat("MMM/dd").apply {
+    private val mmmDDFormatter = SimpleDateFormat("MMM dd").apply {
         timeZone = utc
     }
 

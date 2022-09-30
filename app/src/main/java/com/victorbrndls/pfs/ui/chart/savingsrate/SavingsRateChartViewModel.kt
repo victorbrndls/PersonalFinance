@@ -37,10 +37,14 @@ class SavingsRateChartViewModel @Inject constructor(
         }
     }
 
-    private fun Summary.toItem() = SavingsRateChartEntry(
-        date = dateTranslator.formatYYMMM(date),
-        rate = (1 - expenses.toFloat() / income.toFloat()) * 100f
-    )
+    private fun Summary.toItem(): SavingsRateChartEntry {
+        val rate = (1 - expenses.toFloat() / income.toFloat()) * 100f
+
+        return SavingsRateChartEntry(
+            date = dateTranslator.formatYYMMM(date),
+            rate = if (rate >= 0 && rate.isFinite()) rate else 0f
+        )
+    }
 
 }
 
