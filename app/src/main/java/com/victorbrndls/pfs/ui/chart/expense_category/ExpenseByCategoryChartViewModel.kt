@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.victorbrndls.pfs.core.expense.usecase.GetExpensesUseCase
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator
+import com.victorbrndls.pfs.infrastructure.date.toMonthFirst
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,7 +30,7 @@ class ExpenseByCategoryChartViewModel @Inject constructor(
             // TODO what if expenses is empty?
             entries = getExpensesUseCase.getAll()
                 .sortedByDescending { it.date }
-                .groupBy { dateTranslator.toMonthFirst(it.date) }
+                .groupBy { it.date.toMonthFirst() }
                 .map {
                     val (date, expenses) = it
 

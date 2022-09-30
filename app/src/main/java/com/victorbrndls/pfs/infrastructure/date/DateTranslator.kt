@@ -16,7 +16,4 @@ interface DateTranslator {
 
     /** Feb/02 */
     fun formatMMMDD(date: Date): String
-
-    fun toLocalMidnight(date: Date): Date
-    fun toMonthFirst(date: Date): Date
 }

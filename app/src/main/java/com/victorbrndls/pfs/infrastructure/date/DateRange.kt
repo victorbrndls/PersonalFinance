@@ -13,3 +13,8 @@ internal fun rangeLast12Months() = DateRange(
     start = Date(Date().time - TWELVE_MONTHS_MILLIS),
     end = Date()
 )
+
+internal fun currentMonth() = DateRange(
+    start = Date().toMonthFirst(),
+    end = Date().toMonthLast()
+)

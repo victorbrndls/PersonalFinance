@@ -38,26 +38,4 @@ class DateTranslatorImpl @Inject constructor() : DateTranslator {
         return mmmDDFormatter.format(date)
     }
 
-    override fun toLocalMidnight(date: Date): Date {
-        return Calendar.getInstance(utc).apply {
-            time = date
-            timeZone = TimeZone.getDefault()
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }.time
-    }
-
-    override fun toMonthFirst(date: Date): Date {
-        return Calendar.getInstance(utc).apply {
-            time = date
-            timeZone = TimeZone.getDefault()
-            set(Calendar.DATE, 1)
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }.time
-    }
 }

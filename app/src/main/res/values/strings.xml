@@ -19,6 +19,7 @@
     <string name="title_list_categories">Categories</string>
 
     <string name="label_expense">Expense</string>
+    <string name="label_expenses">Expenses</string>
     <string name="label_income">Income</string>
 
     <string name="title_summary_income">Income</string>

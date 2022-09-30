@@ -6,6 +6,7 @@ import com.victorbrndls.pfs.core.summary.entity.Summary
 import com.victorbrndls.pfs.infrastructure.date.DateRange
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator
 import com.victorbrndls.pfs.infrastructure.date.rangeLast12Months
+import com.victorbrndls.pfs.infrastructure.date.toMonthFirst
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -34,12 +35,12 @@ class GetSummariesUseCaseImpl @Inject constructor(
             .filter { date ->
                 date.after(range.start) && range.end?.let { end -> date.before(end) } ?: true
             }
-            .map { dateTranslator.toMonthFirst(it) }
+            .map { it.toMonthFirst() }
             .toSet()
             .sortedDescending()
 
-        val aggIncomes = incomes.groupBy { dateTranslator.toMonthFirst(it.date) }
-        val aggExpenses = expenses.groupBy { dateTranslator.toMonthFirst(it.date) }
+        val aggIncomes = incomes.groupBy { it.date.toMonthFirst() }
+        val aggExpenses = expenses.groupBy { it.date.toMonthFirst() }
 
         val summaries = dates.map { date ->
             Summary(

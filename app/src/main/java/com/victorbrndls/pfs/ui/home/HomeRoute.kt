@@ -26,6 +26,7 @@ import com.victorbrndls.pfs.ui.designsystem.theme.Purple40
 import com.victorbrndls.pfs.ui.designsystem.theme.White
 import com.victorbrndls.pfs.ui.route.Routes
 import com.victorbrndls.pfs.ui.summary.SummaryComponent
+import com.victorbrndls.pfs.ui.summary.singleperiod.SinglePeriodSummaryComponent
 import com.victorbrndls.pfs.ui.transaction.list.smaller.ListShortTransactionComponent
 
 @Composable
@@ -61,10 +62,10 @@ private fun HomeScreen(
                 modifier = modifier.verticalScroll(state = rememberScrollState())
             ) {
                 Box {
-                    val boxHeight by remember { mutableStateOf(120.dp) }
-                    val contentTopPadding by remember { derivedStateOf { boxHeight * 0.50f } }
+                    val boxHeight by remember { mutableStateOf(250.dp) }
+                    val contentTopPadding by remember { derivedStateOf { boxHeight * 0.63f } }
 
-                    Box(
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(boxHeight)
@@ -80,6 +81,10 @@ private fun HomeScreen(
                             color = White,
                             fontSize = 22.sp,
                         )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        SinglePeriodSummaryComponent()
                     }
 
                     Box(

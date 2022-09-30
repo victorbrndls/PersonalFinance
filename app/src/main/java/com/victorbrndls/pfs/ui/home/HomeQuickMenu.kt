@@ -38,14 +38,14 @@ internal fun HomeQuickMenu(
     ) {
         VerticalButton(
             text = stringResource(id = R.string.title_add_expense),
-            iconId = R.drawable.ic_baseline_add_24_black,
+            iconId = R.drawable.ic_baseline_remove_24_black,
             onClick = onNavigateToAddExpense,
             modifier = Modifier.width(buttonWidth)
         )
 
         VerticalButton(
             text = stringResource(id = R.string.title_add_income),
-            iconId = R.drawable.ic_baseline_remove_24_black,
+            iconId = R.drawable.ic_baseline_add_24_black,
             onClick = onNavigateToAddIncome,
             modifier = Modifier.width(buttonWidth)
         )

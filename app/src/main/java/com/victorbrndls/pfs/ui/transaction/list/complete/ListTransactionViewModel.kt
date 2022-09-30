@@ -9,6 +9,7 @@ import com.victorbrndls.pfs.core.category.entity.CategoryType
 import com.victorbrndls.pfs.core.expense.entity.Expense
 import com.victorbrndls.pfs.core.income.entity.Income
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator
+import com.victorbrndls.pfs.infrastructure.date.toLocalMidnight
 import com.victorbrndls.pfs.infrastructure.money.MoneyTranslator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -31,7 +32,7 @@ class ListTransactionViewModel @Inject constructor(
                 val categoryType = categoryType ?: return@filter true
                 transaction.category.type == categoryType
             }
-            .groupBy { dateTranslator.toLocalMidnight(it.date) }
+            .groupBy { it.date.toLocalMidnight() }
             .flatMap { (date, transactions) ->
                 listOf(TransactionDate(dateTranslator.formatYYYYMMDD(date))) +
                         transactions.sortedBy { it.category.type }.map { it.toModel() }
