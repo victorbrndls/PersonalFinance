@@ -78,9 +78,9 @@ private fun HomeScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                SummaryComponent()
+                HomeSummaryComponent()
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
@@ -168,5 +168,18 @@ private fun ShortTransactionsComponent(onNavigateToTransactions: () -> Unit) {
         Button(onClick = onNavigateToTransactions) {
             Text(text = stringResource(id = R.string.transaction_see_more))
         }
+    }
+}
+
+@Composable
+private fun HomeSummaryComponent() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(4.dp)
+            .background(White)
+            .padding(vertical = 4.dp)
+    ) {
+        SummaryComponent()
     }
 }
