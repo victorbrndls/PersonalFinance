@@ -6,19 +6,17 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.victorbrndls.pfs.core.summary.entity.Summary
-import com.victorbrndls.pfs.core.summary.usecase.GetSummariesUseCase
-import com.victorbrndls.pfs.infrastructure.date.DateRange
+import com.victorbrndls.pfs.core.summary.usecase.ObserveSummariesUseCase
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator
 import com.victorbrndls.pfs.infrastructure.date.rangeLast12Months
 import com.victorbrndls.pfs.infrastructure.money.MoneyTranslator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class SummaryViewModel @Inject constructor(
-    private val getSummariesUseCase: GetSummariesUseCase,
+    private val observeSummariesUseCase: ObserveSummariesUseCase,
     private val dateTranslator: DateTranslator,
     private val moneyTranslator: MoneyTranslator,
 ) : ViewModel() {
@@ -37,11 +35,12 @@ class SummaryViewModel @Inject constructor(
         viewModelScope.launch {
             isLoading = true
 
-            items = getSummariesUseCase.getAll(
+            observeSummariesUseCase.observe(
                 range = rangeLast12Months()
-            ).map { summary -> summary.toItem() }
-
-            isLoading = false
+            ).collect { summaries ->
+                isLoading = false
+                items = summaries.map { summary -> summary.toItem() }
+            }
         }
     }
 

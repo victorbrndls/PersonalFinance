@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.victorbrndls.pfs.core.summary.usecase.GetSummariesUseCase
+import com.victorbrndls.pfs.core.summary.usecase.ObserveSummariesUseCase
 import com.victorbrndls.pfs.infrastructure.date.currentMonth
 import com.victorbrndls.pfs.infrastructure.money.MoneyTranslator
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SinglePeriodSummaryViewModel @Inject constructor(
-    private val getSummariesUseCase: GetSummariesUseCase,
+    private val observeSummariesUseCase: ObserveSummariesUseCase,
     private val moneyTranslator: MoneyTranslator,
 ) : ViewModel() {
 
@@ -32,16 +32,15 @@ class SinglePeriodSummaryViewModel @Inject constructor(
         viewModelScope.launch {
             isLoading = true
 
-            item = getSummariesUseCase.getAll(
+            observeSummariesUseCase.observe(
                 range = currentMonth()
-            ).let { summaries ->
-                SinglePeriodSummaryItem(
+            ).collect { summaries ->
+                isLoading = false
+                item = SinglePeriodSummaryItem(
                     income = "+" + moneyTranslator.formatWhole(summaries.sumOf { it.income }),
                     expenses = "-" + moneyTranslator.formatWhole(summaries.sumOf { it.expenses })
                 )
             }
-
-            isLoading = false
         }
     }
 
