@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.ui.transaction.list
+package com.victorbrndls.pfs.ui.transaction.list.complete
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.victorbrndls.pfs.core.category.entity.CategoryType
-import com.victorbrndls.pfs.ui.designsystem.component.PfsHorizontalProgressBar
+import com.victorbrndls.pfs.ui.designsystem.component.progress.PfsHorizontalProgressIndicator
 import com.victorbrndls.pfs.ui.designsystem.theme.Black10
 import com.victorbrndls.pfs.ui.designsystem.theme.Green40
 import com.victorbrndls.pfs.ui.designsystem.theme.Red40
@@ -45,7 +45,7 @@ private fun ListTransactionUI(
 ) {
     Box(modifier = modifier) {
         if (isLoading) {
-            PfsHorizontalProgressBar()
+            PfsHorizontalProgressIndicator()
         }
         Column {
             CategoryTypeFilter(
@@ -70,7 +70,7 @@ private fun ListTransactionUI(
 }
 
 @Composable
-fun DateHeader(date: String) {
+private fun DateHeader(date: String) {
     Surface(
         color = Black10,
         modifier = Modifier

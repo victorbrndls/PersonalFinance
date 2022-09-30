@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.ui.designsystem.component
+package com.victorbrndls.pfs.ui.designsystem.component.progress
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PfsHorizontalProgressBar(
+fun PfsHorizontalProgressIndicator(
     modifier: Modifier = Modifier
 ) {
     LinearProgressIndicator(

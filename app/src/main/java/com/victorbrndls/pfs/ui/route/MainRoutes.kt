@@ -11,7 +11,7 @@ import com.victorbrndls.pfs.ui.chart.ChartsRoute
 import com.victorbrndls.pfs.ui.expense.edit.EditExpenseRoute
 import com.victorbrndls.pfs.ui.home.HomeRoute
 import com.victorbrndls.pfs.ui.income.edit.EditIncomeRoute
-import com.victorbrndls.pfs.ui.transaction.list.ListTransactionsRoute
+import com.victorbrndls.pfs.ui.transaction.list.complete.ListTransactionsRoute
 
 @Composable
 fun MainRoutes() {

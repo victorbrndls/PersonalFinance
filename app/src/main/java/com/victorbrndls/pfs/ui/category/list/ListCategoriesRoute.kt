@@ -18,7 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.victorbrndls.pfs.R
 import com.victorbrndls.pfs.core.category.entity.Category
-import com.victorbrndls.pfs.ui.designsystem.component.PfsHorizontalProgressBar
+import com.victorbrndls.pfs.ui.designsystem.component.progress.PfsHorizontalProgressIndicator
 import com.victorbrndls.pfs.ui.designsystem.component.PfsTopAppBar
 import com.victorbrndls.pfs.ui.ktx.backgroundColor
 import com.victorbrndls.pfs.ui.ktx.stringRes
@@ -79,7 +79,7 @@ private fun ListCategoriesScreen(
                 .consumedWindowInsets(innerPadding)
         ) {
             if (isLoading) {
-                PfsHorizontalProgressBar()
+                PfsHorizontalProgressIndicator()
             }
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(

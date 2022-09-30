@@ -21,6 +21,7 @@ import com.victorbrndls.pfs.ui.designsystem.theme.Purple40
 import com.victorbrndls.pfs.ui.designsystem.theme.White
 import com.victorbrndls.pfs.ui.route.Routes
 import com.victorbrndls.pfs.ui.summary.SummaryComponent
+import com.victorbrndls.pfs.ui.transaction.list.smaller.ListShortTransactionComponent
 
 @Composable
 fun HomeRoute(
@@ -56,7 +57,7 @@ private fun HomeScreen(
             ) {
                 Box {
                     val boxHeight by remember { mutableStateOf(120.dp) }
-                    val contentTopPadding by derivedStateOf { boxHeight * 0.50f }
+                    val contentTopPadding by remember { derivedStateOf { boxHeight * 0.50f } }
 
                     Box(
                         modifier = Modifier
@@ -93,11 +94,15 @@ private fun HomeScreen(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(24.dp))
+
+                ListShortTransactionComponent()
+
+                Spacer(modifier = Modifier.height(24.dp))
 
                 SummaryComponent()
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(24.dp))
             }
         }
     }

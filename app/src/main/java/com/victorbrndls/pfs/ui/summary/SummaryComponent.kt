@@ -15,10 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.victorbrndls.pfs.R
-import com.victorbrndls.pfs.ui.designsystem.component.PfsHorizontalProgressBar
-import com.victorbrndls.pfs.ui.designsystem.theme.Black
-import com.victorbrndls.pfs.ui.designsystem.theme.Black20
-import com.victorbrndls.pfs.ui.designsystem.theme.Black60
+import com.victorbrndls.pfs.ui.designsystem.component.progress.PfsHorizontalProgressIndicator
 
 @Composable
 fun SummaryComponent(
@@ -51,7 +48,7 @@ private fun SummaryUI(
         }
 
         if (isLoading) {
-            PfsHorizontalProgressBar()
+            PfsHorizontalProgressIndicator()
         }
         LazyRow {
             item(key = "header") {

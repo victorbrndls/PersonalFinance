@@ -1,4 +1,4 @@
-package com.victorbrndls.pfs.ui.transaction.list
+package com.victorbrndls.pfs.ui.transaction.list.complete
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
