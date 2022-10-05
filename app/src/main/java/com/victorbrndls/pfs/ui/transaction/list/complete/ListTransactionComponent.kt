@@ -20,6 +20,7 @@ import com.victorbrndls.pfs.ui.designsystem.theme.Green40
 import com.victorbrndls.pfs.ui.designsystem.theme.Red40
 import com.victorbrndls.pfs.ui.designsystem.theme.Transparent
 import com.victorbrndls.pfs.ui.ktx.stringRes
+import com.victorbrndls.pfs.ui.transaction.filter.CategoryTypeFilter
 
 @Composable
 fun ListTransactionComponent(
@@ -122,32 +123,6 @@ private fun ExpenseItem(
             text = expense.amount,
             color = Red40
         )
-    }
-}
-
-@Composable
-fun CategoryTypeFilter(
-    selected: CategoryType?,
-    onSelected: (CategoryType) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier.fillMaxWidth()
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            CategoryType.values().forEach { type ->
-                Text(
-                    text = stringResource(id = type.stringRes),
-                    modifier = Modifier
-                        .background(if (selected == type) Black10 else Transparent)
-                        .clickable { onSelected(type) }
-                        .padding(horizontal = 12.dp, vertical = 8.dp)
-                )
-            }
-        }
     }
 }
 
