@@ -18,7 +18,8 @@ data class BarPeriodFilterEntry(
     val id: String,
     val label: String,
     val value: Float,
-    val isSelected: Boolean
+    val data: Any? = null,
+    val isSelected: Boolean = false
 )
 
 @Stable
@@ -34,7 +35,7 @@ class BarPeriodFilterState(
         private set(value) {
             field = { clicked ->
                 items.value = items.value.map { item ->
-                    if (item != clicked) return@map item
+                    if (item != clicked || item.value <= 0f) return@map item
                     clicked.copy(isSelected = !clicked.isSelected)
                 }
                 value(clicked)
@@ -52,7 +53,7 @@ fun rememberBarPeriodFilterState(
     items: List<BarPeriodFilterEntry> = emptyList(),
     onEntryClicked: (BarPeriodFilterEntry) -> Unit = {}
 ): BarPeriodFilterState {
-    return remember {
+    return remember(items) {
         BarPeriodFilterState(items, onEntryClicked)
     }
 }
@@ -65,8 +66,9 @@ fun BarPeriodFilter(
     val labelHeight = 32.dp
     val listState = rememberLazyListState()
 
-    LaunchedEffect(true) {
-        listState.scrollToItem(state.items.value.lastIndex) // scroll to last item
+    LaunchedEffect(state) {
+        val lastIndex = state.items.value.lastIndex
+        if (lastIndex >= 0) listState.scrollToItem(lastIndex)
     }
 
     LazyRow(

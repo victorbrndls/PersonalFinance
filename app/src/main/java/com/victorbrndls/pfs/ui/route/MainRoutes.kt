@@ -17,7 +17,7 @@ import com.victorbrndls.pfs.ui.transaction.list.complete.ListTransactionsRoute
 fun MainRoutes() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Routes.HOME) {
+    NavHost(navController = navController, startDestination = Routes.LIST_TRANSACTIONS) {
         composable(Routes.HOME) { HomeRoute(navController) }
 
         composable(Routes.EDIT_EXPENSE) { EditExpenseRoute(navController) }

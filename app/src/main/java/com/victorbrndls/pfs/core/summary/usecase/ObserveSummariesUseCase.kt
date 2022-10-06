@@ -4,6 +4,7 @@ import com.victorbrndls.pfs.core.expense.usecase.ObserveExpensesUseCase
 import com.victorbrndls.pfs.core.income.usecase.ObserveIncomesUseCase
 import com.victorbrndls.pfs.core.summary.entity.Summary
 import com.victorbrndls.pfs.infrastructure.date.DateRange
+import com.victorbrndls.pfs.infrastructure.date.isInRange
 import com.victorbrndls.pfs.infrastructure.date.rangeLast12Months
 import com.victorbrndls.pfs.infrastructure.date.toMonthFirst
 import kotlinx.coroutines.flow.Flow
@@ -33,9 +34,7 @@ class ObserveSummariesUseCaseImpl @Inject constructor(
             observeExpensesUseCase.observe()
         ) { incomes, expenses ->
             val dates = (incomes.map { it.date } + expenses.map { it.date })
-                .filter { date ->
-                    date.after(range.start) && range.end?.let { end -> date.before(end) } ?: true
-                }
+                .filter { date -> date.isInRange(range) }
                 .map { it.toMonthFirst() }
                 .toSet()
                 .sortedDescending()
