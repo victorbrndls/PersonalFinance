@@ -5,9 +5,12 @@ import com.victorbrndls.pfs.core.income.dto.EditIncomeData
 import com.victorbrndls.pfs.core.income.entity.Income
 import com.victorbrndls.pfs.core.income.repository.IncomeRepository
 import com.victorbrndls.pfs.data.category.repository.fakeCategories
+import com.victorbrndls.pfs.infrastructure.date.DateRange
+import com.victorbrndls.pfs.infrastructure.date.isInRange
 import com.victorbrndls.pfs.infrastructure.logger.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -22,8 +25,8 @@ class IncomeRepositoryImpl @Inject constructor() : IncomeRepository {
         return incomes.value
     }
 
-    override suspend fun observe(): Flow<List<Income>> {
-        return incomes
+    override suspend fun observe(range: DateRange): Flow<List<Income>> {
+        return incomes.map { list -> list.filter { it.date.isInRange(range) } }
     }
 
     override suspend fun save(income: EditIncomeData) {

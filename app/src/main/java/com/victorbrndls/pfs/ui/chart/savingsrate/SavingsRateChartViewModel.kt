@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.victorbrndls.pfs.core.summary.entity.Summary
 import com.victorbrndls.pfs.core.summary.usecase.GetSummariesUseCase
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator
-import com.victorbrndls.pfs.infrastructure.date.rangeLast12Months
+import com.victorbrndls.pfs.infrastructure.date.last12Months
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class SavingsRateChartViewModel @Inject constructor(
         viewModelScope.launch {
             // TODO what if summaries is empty?
             entries = getSummariesUseCase.getAll(
-                range = rangeLast12Months()
+                range = last12Months()
             )
                 .map { summary -> summary.toItem() }
                 .reversed() // show oldest to newest

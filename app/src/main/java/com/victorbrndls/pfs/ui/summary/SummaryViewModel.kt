@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.victorbrndls.pfs.core.summary.entity.Summary
 import com.victorbrndls.pfs.core.summary.usecase.ObserveSummariesUseCase
 import com.victorbrndls.pfs.infrastructure.date.DateTranslator
-import com.victorbrndls.pfs.infrastructure.date.rangeLast12Months
+import com.victorbrndls.pfs.infrastructure.date.last12Months
 import com.victorbrndls.pfs.infrastructure.money.MoneyTranslator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -36,7 +36,7 @@ class SummaryViewModel @Inject constructor(
             isLoading = true
 
             observeSummariesUseCase.observe(
-                range = rangeLast12Months()
+                range = last12Months()
             ).collect { summaries ->
                 isLoading = false
                 items = summaries.map { summary -> summary.toItem() }

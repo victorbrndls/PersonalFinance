@@ -9,7 +9,7 @@ data class DateRange(
 
 private const val TWELVE_MONTHS_MILLIS = 31557600000L
 
-internal fun rangeLast12Months() = DateRange(
+internal fun last12Months() = DateRange(
     start = Date(Date().time - TWELVE_MONTHS_MILLIS),
     end = Date()
 )
