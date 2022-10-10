@@ -1,8 +1,6 @@
 package com.victorbrndls.pfs.ui.transaction.list.complete
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,10 +45,16 @@ private fun FilterableListTransactionUI(
     modifier: Modifier = Modifier,
 ) {
     Column {
-        CategoryTypeFilter(
-            selected = filteredCategoryType,
-            onSelected = onCategoryTypeSelected
-        )
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            CategoryTypeFilter(
+                selected = filteredCategoryType,
+                onSelected = onCategoryTypeSelected
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
         Box(
             contentAlignment = Alignment.BottomCenter
         ) {
