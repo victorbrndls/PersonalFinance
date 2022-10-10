@@ -6,23 +6,29 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.victorbrndls.pfs.ui.designsystem.theme.Black10
 import com.victorbrndls.pfs.ui.designsystem.theme.Green40
 import com.victorbrndls.pfs.ui.designsystem.theme.Red40
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
 fun ListTransactionComponent(
     transactions: List<TransactionListItem>,
     modifier: Modifier = Modifier,
+    scrollOffset: (Int) -> Unit = {},
 ) {
     ListTransactionUI(
         transactions = transactions,
+        scrollOffset = scrollOffset,
         modifier = modifier
     )
 }
@@ -30,9 +36,20 @@ fun ListTransactionComponent(
 @Composable
 private fun ListTransactionUI(
     transactions: List<TransactionListItem>,
+    scrollOffset: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(modifier = modifier) {
+    val state = rememberLazyListState()
+
+    LaunchedEffect(state) {
+        snapshotFlow { state.firstVisibleItemScrollOffset }
+            .collect { scrollOffset(it) }
+    }
+
+    LazyColumn(
+        state = state,
+        modifier = modifier
+    ) {
         items(
             items = transactions,
             key = { it.id },

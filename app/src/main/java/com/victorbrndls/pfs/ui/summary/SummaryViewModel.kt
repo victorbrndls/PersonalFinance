@@ -47,7 +47,7 @@ class SummaryViewModel @Inject constructor(
     private fun Summary.toItem() = SummaryItem(
         date = dateTranslator.formatYYMMM(date),
         income = moneyTranslator.formatWhole(income),
-        expenses = moneyTranslator.formatWhole(expenses),
+        expenses = "-" + moneyTranslator.formatWhole(expenses),
         netSavings = moneyTranslator.formatWhole(netSavings),
         endingBalance = moneyTranslator.formatWhole(endingBalance),
     )

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.victorbrndls.pfs.core.category.entity.CategoryType
@@ -44,6 +45,11 @@ private fun FilterableListTransactionUI(
     periodFilterState: BarPeriodFilterState,
     modifier: Modifier = Modifier,
 ) {
+    var showFilterShadow by remember { mutableStateOf(false) }
+    val filterShadowElevation by remember {
+        derivedStateOf { if (showFilterShadow) 8.dp else 0.dp }
+    }
+
     Column {
         Box(
             contentAlignment = Alignment.Center,
@@ -56,7 +62,7 @@ private fun FilterableListTransactionUI(
         }
         Spacer(modifier = Modifier.height(8.dp))
         Box(
-            contentAlignment = Alignment.BottomCenter
+            contentAlignment = Alignment.BottomCenter,
         ) {
             BarPeriodFilter(
                 state = periodFilterState,
@@ -65,9 +71,16 @@ private fun FilterableListTransactionUI(
             if (isLoading) {
                 PfsHorizontalProgressIndicator()
             }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+                    .shadow(elevation = filterShadowElevation)
+            )
         }
         ListTransactionComponent(
             transactions = transactions,
+            scrollOffset = { offset -> showFilterShadow = offset > 0 },
             modifier = modifier
         )
     }
