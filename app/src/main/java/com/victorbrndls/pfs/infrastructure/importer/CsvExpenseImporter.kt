@@ -64,13 +64,14 @@ class CsvExpenseImporter @Inject constructor(
         runCatching {
             val date = parseDate(parts[0]) ?: return
             val description = parts[1].takeIf { it.isNotBlank() } ?: return
+            val category = parts[2].takeIf { it.isNotBlank() } ?: return
             val amount = moneyTranslator.parse(parts[3].removePrefix("$")) ?: return
 
             saveExpenseUseCase.save(
                 EditExpenseData(
                     null,
                     description,
-                    categories.random(),
+                    categories.firstOrNull { it.label == category } ?: categories.random(),
                     date,
                     amount
                 )

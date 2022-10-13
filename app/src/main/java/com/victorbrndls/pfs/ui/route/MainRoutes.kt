@@ -7,6 +7,7 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import com.victorbrndls.pfs.ui.category.edit.EditCategoryRoute
 import com.victorbrndls.pfs.ui.category.list.ListCategoriesRoute
+import com.victorbrndls.pfs.ui.category.table.TableCategoriesRoute
 import com.victorbrndls.pfs.ui.chart.ChartsRoute
 import com.victorbrndls.pfs.ui.expense.edit.EditExpenseRoute
 import com.victorbrndls.pfs.ui.home.HomeRoute
@@ -25,6 +26,7 @@ fun MainRoutes() {
         composable(Routes.EDIT_INCOME) { EditIncomeRoute(navController) }
 
         composable(Routes.LIST_CATEGORIES) { ListCategoriesRoute(navController) }
+        composable(Routes.TABLE_CATEGORIES) { TableCategoriesRoute(navController) }
         dialog(Routes.EDIT_CATEGORY) { EditCategoryRoute(navController) }
 
         composable(Routes.CHARTS) { ChartsRoute(navController) }
