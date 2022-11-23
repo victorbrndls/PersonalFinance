@@ -25,25 +25,29 @@ class CsvExpenseImporter @Inject constructor(
     private val abbreviatedMonths = context.resources.getStringArray(R.array.abbreviated_months)
 
     suspend fun import() {
-        val resource = context.resources.openRawResource(R.raw.expenses)
-        val lines = resource.reader().readLines()
+        runCatching {
+            val resource = context.resources.openRawResource(R.raw.expenses)
+            val lines = resource.reader().readLines()
 
-        val expenses = lines.drop(1) // drop header
-            .map { it.split(",") }
-        Logger.d("Read ${expenses.size} possible expenses")
+            val expenses = lines.drop(1) // drop header
+                .map { it.split(",") }
+            Logger.d("Read ${expenses.size} possible expenses")
 
-        val categories = expenses.mapNotNull { parseCategory(it) }.toSet()
-        val existingCategories = getCategoriesUseCase.getAll(
-            type = CategoryType.EXPENSE
-        ).map { it.label }.toSet()
+            val categories = expenses.mapNotNull { parseCategory(it) }.toSet()
+            val existingCategories = getCategoriesUseCase.getAll(
+                type = CategoryType.EXPENSE
+            ).map { it.label }.toSet()
 
-        val newCategories = categories - existingCategories
-        newCategories.forEach { createCategory(it) }
-        Logger.d("Read ${categories.size} categories, creating ${newCategories.size} new ones")
+            val newCategories = categories - existingCategories
+            newCategories.forEach { createCategory(it) }
+            Logger.d("Read ${categories.size} categories, creating ${newCategories.size} new ones")
 
-        val updatedCategories = getCategoriesUseCase.getAll(type = CategoryType.EXPENSE)
-        expenses.forEach { createExpense(it, updatedCategories) }
-        Logger.d("Saved ${expenses.size} expenses")
+            val updatedCategories = getCategoriesUseCase.getAll(type = CategoryType.EXPENSE)
+            expenses.forEach { createExpense(it, updatedCategories) }
+            Logger.d("Saved ${expenses.size} expenses")
+        }.onFailure {
+            Logger.e("Error importing expenses", it)
+        }
     }
 
     private suspend fun createCategory(label: String) {

@@ -29,11 +29,7 @@ import com.victorbrndls.pfs.ui.designsystem.theme.White
 import com.victorbrndls.pfs.ui.route.Routes
 import com.victorbrndls.pfs.ui.summary.SummaryComponent
 import com.victorbrndls.pfs.ui.summary.singleperiod.SinglePeriodSummaryComponent
-import com.victorbrndls.pfs.ui.transaction.filter.BarPeriodFilter
-import com.victorbrndls.pfs.ui.transaction.filter.BarPeriodFilterEntry
-import com.victorbrndls.pfs.ui.transaction.filter.rememberBarPeriodFilterState
 import com.victorbrndls.pfs.ui.transaction.list.smaller.ListShortTransactionComponent
-import java.util.UUID
 
 @Composable
 fun HomeRoute(
