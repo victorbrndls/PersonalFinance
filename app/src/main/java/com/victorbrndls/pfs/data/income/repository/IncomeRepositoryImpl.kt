@@ -50,6 +50,6 @@ private val fakeIncomes = (0..10).map { c ->
         description = "Salary",
         category = fakeCategories.filter { it.type == CategoryType.INCOME }.random(),
         date = Date(Date().time - c * ONE_MONTH_MILLIS),
-        amount = BigDecimal.valueOf(Random.nextLong(6000, 9000))
+        amount = BigDecimal.valueOf(Random.nextLong(1000, 2000))
     )
 }
